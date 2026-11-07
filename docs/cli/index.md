@@ -1,0 +1,69 @@
+# CLI reference
+
+Every devvm command, with its arguments and flags. `devvm <command> --help` prints the same.
+
+- [devvm](devvm.md): Open a shell in this folder's VM, creating it first
+- [devvm adopt](devvm_adopt.md): Give this folder the VM made for an earlier folder or path
+- [devvm agent](devvm_agent.md): Fill devvm's store of the agents' settings and logins that every VM gets
+- [devvm agent import](devvm_agent_import.md): Copy the agents' settings and logins from this machine into devvm's store
+- [devvm agent login](devvm_agent_login.md): Log an agent in, in this folder's VM, and save the login in devvm's store
+- [devvm agent save](devvm_agent_save.md): Copy the agents' settings from this folder's VM into devvm's store
+- [devvm build](devvm_build.md): Build an image and the images under it, unless they're built
+- [devvm clone](devvm_clone.md): Show or change whether this folder's VM has its own clone of the repo
+- [devvm code](devvm_code.md): Open this folder's VM in VS Code over Remote-SSH
+- [devvm completion](devvm_completion.md): Print the shell completion script for bash, zsh or fish
+- [devvm desktop](devvm_desktop.md): Open this folder's VM's desktop in a VNC viewer
+- [devvm doctor](devvm_doctor.md): Check what devvm needs on this machine
+- [devvm gc](devvm_gc.md): Delete stale images, unused tools, old files and the Nix cache over its cap
+- [devvm git-protect](devvm_git-protect.md): Show or change .git protection for this folder's VM
+- [devvm group](devvm_group.md): Show the group this folder's VM is in
+- [devvm group join](devvm_group_join.md): Put this folder's VM in a group of VMs
+- [devvm group leave](devvm_group_leave.md): Take this folder's VM out of its group
+- [devvm history](devvm_history.md): List the saved exports of agents' history
+- [devvm history export](devvm_history_export.md): Save this folder's VM's agent history to a .tar.gz
+- [devvm history import](devvm_history_import.md): Put an export of agent history into this folder's VM
+- [devvm host](devvm_host.md): Get this folder's VM ready for ssh and editors, and show its host name
+- [devvm images](devvm_images.md): List the images and the shared tools
+- [devvm images rm](devvm_images_rm.md): Delete images, by name or by key
+- [devvm layer](devvm_layer.md): Make image layers of your own, or change this folder's VM's layers
+- [devvm layer add](devvm_layer_add.md): Make this folder's VM again with more layers, then open a shell in it
+- [devvm layer new](devvm_layer_new.md): Start a layer of your own
+- [devvm layer rm](devvm_layer_rm.md): Make this folder's VM again without some of its layers, then open a shell in it
+- [devvm limactl](devvm_limactl.md): Run Lima's limactl for debugging, which starts VMs unconfined, whatever their tier
+- [devvm link](devvm_link.md): List this folder's VM's links to your other VMs
+- [devvm link add](devvm_link_add.md): Link this folder's VM to a port of another VM
+- [devvm link publish](devvm_link_publish.md): Show or add the ports this folder's VM offers to links
+- [devvm link rm](devvm_link_rm.md): Remove one of this folder's VM's links
+- [devvm link unpublish](devvm_link_unpublish.md): Stop offering ports of this folder's VM to links
+- [devvm ls](devvm_ls.md): List the project VMs
+- [devvm network](devvm_network.md): Show or change the network tier of this folder's VM
+- [devvm network allow](devvm_network_allow.md): Allow hosts for this folder's VM
+- [devvm network deny](devvm_network_deny.md): Deny hosts for this folder's VM
+- [devvm network log](devvm_network_log.md): Show what this folder's VM connected to and what its proxy blocked
+- [devvm network rm](devvm_network_rm.md): Remove rules from this folder's VM
+- [devvm ports](devvm_ports.md): Show or change which ports this folder's VM forwards
+- [devvm ports add](devvm_ports_add.md): Forward more ports from this folder's VM
+- [devvm ports rm](devvm_ports_rm.md): Stop forwarding some ports from this folder's VM
+- [devvm rebuild](devvm_rebuild.md): Build an image again, and delete the old one
+- [devvm restart](devvm_restart.md): Restart this folder's VM and open a shell in it
+- [devvm retention](devvm_retention.md): Show or change what devvm deletes on its own
+- [devvm rm](devvm_rm.md): Delete this folder's VM, or a VM whose folder is gone
+- [devvm secret](devvm_secret.md): List the secrets kept on this machine, for VMs to use
+- [devvm secret rm](devvm_secret_rm.md): Delete a saved secret
+- [devvm secret set](devvm_secret_set.md): Save a secret on this machine
+- [devvm secret unuse](devvm_secret_unuse.md): Stop this folder's VM using a secret
+- [devvm secret use](devvm_secret_use.md): Let this folder's VM use a secret
+- [devvm setup](devvm_setup.md): Choose base's features, and new VMs' size, network tier, coding agents and layers
+- [devvm size](devvm_size.md): Show or change this folder's VM's size
+- [devvm space](devvm_space.md): Show what devvm keeps on this machine and the space it takes
+- [devvm ssh-agent](devvm_ssh-agent.md): Show or change SSH agent forwarding for this folder's VM
+- [devvm ssh-agent add](devvm_ssh-agent_add.md): Load a key into devvm's own SSH agent
+- [devvm ssh-agent rm](devvm_ssh-agent_rm.md): Remove a key from devvm's own SSH agent
+- [devvm stop](devvm_stop.md): Stop this folder's VM
+- [devvm tools](devvm_tools.md): Show or choose this folder's VM's shared tools
+- [devvm tools add](devvm_tools_add.md): Add shared tools to this folder's VM, then open a shell in it
+- [devvm tools rm](devvm_tools_rm.md): Take shared tools out of this folder's VM, then open a shell in it
+- [devvm tools update](devvm_tools_update.md): Move this folder's VM to the newest shared tools, then open a shell in it
+- [devvm update](devvm_update.md): Bring this folder's VM up to date, then open a shell in it
+- [devvm upgrade](devvm_upgrade.md): Install devvm's newest release
+

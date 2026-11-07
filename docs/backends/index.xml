@@ -1,0 +1,110 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>devvm – Backends</title><link>https://next.devvm.dev/docs/backends/</link><description>Recent content in Backends on devvm</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://next.devvm.dev/docs/backends/index.xml" rel="self" type="application/rss+xml"/><item><title>Lima</title><link>https://next.devvm.dev/docs/backends/lima/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/backends/lima/</guid><description>
+&lt;p&gt;&lt;a href="https://lima-vm.io" target="_blank" rel="noopener"&gt;Lima&lt;/a&gt; is devvm&amp;rsquo;s backend, so every new VM runs on it (&lt;a href="https://next.devvm.dev/docs/backends/#a-vms-backend"&gt;a VM&amp;rsquo;s backend&lt;/a&gt;). Each project gets a full VM with a kernel of its own, which runs on Apple&amp;rsquo;s Virtualization framework (&lt;code&gt;vz&lt;/code&gt;) on macOS and on QEMU on Linux. &lt;a href="https://next.devvm.dev/docs/internals/lima/"&gt;How it works › Lima&lt;/a&gt; explains how devvm sets up, confines and clones Lima&amp;rsquo;s VMs.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="requirements"&gt;Requirements&lt;span class="hx:absolute hx:-mt-20" id="requirements"&gt;&lt;/span&gt;
+&lt;a href="#requirements" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="devvm-install"&gt;
+&lt;div class="hextra-scrollbar hx:overflow-x-auto hx:overflow-y-hidden hx:overscroll-x-contain"&gt;
+&lt;div class="hx:mt-4 hx:flex hx:w-max hx:min-w-full hx:border-b hx:border-gray-200 hx:pb-px hx:dark:border-neutral-800" role="tablist"&gt;&lt;button class="hextra-tabs-toggle hx:cursor-pointer hx:data-[state=selected]:border-primary-500 hx:data-[state=selected]:text-primary-600 hx:data-[state=selected]:dark:border-primary-500 hx:data-[state=selected]:dark:text-primary-600 hx:mr-2 hx:rounded-t hx:p-2 hx:font-medium hx:leading-5 hx:transition-colors hx:-mb-0.5 hx:select-none hx:border-b-2 hx:border-transparent hx:text-gray-600 hx:hover:border-gray-200 hx:hover:text-black hx:dark:text-gray-200 hx:dark:hover:border-neutral-800 hx:dark:hover:text-white hx:hextra-focus-visible-inset" id="tabs-tab-tabs-os-tabs-0-1" role="tab" type="button" aria-controls="tabs-panel-tabs-os-tabs-0-1" aria-selected="true" tabindex="0" data-state="selected"&gt;&lt;span class="hx:inline-flex hx:items-center hx:gap-1.5"&gt;&lt;span&gt;&lt;svg class="devvm-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges"&gt;&lt;path d="M5 4h1V3h1V2h1V1H6v1H5Zm-3 7h1v-1H2Zm1 1h2v-1H3Zm-2-2h1V5H1Zm4 1h1v-1H5Zm1 1h2v-1H6Zm2-1h1v-1H8ZM2 5h2V4H2Zm7 5h1V9H9ZM4 6h3V5H4Zm4 3h1V6H8ZM7 5h2V4H7Zm2 1h1V5H9Zm0 0"/&gt;&lt;/svg&gt;macOS&lt;/span&gt;&lt;/span&gt;&lt;/button&gt;&lt;button class="hextra-tabs-toggle hx:cursor-pointer hx:data-[state=selected]:border-primary-500 hx:data-[state=selected]:text-primary-600 hx:data-[state=selected]:dark:border-primary-500 hx:data-[state=selected]:dark:text-primary-600 hx:mr-2 hx:rounded-t hx:p-2 hx:font-medium hx:leading-5 hx:transition-colors hx:-mb-0.5 hx:select-none hx:border-b-2 hx:border-transparent hx:text-gray-600 hx:hover:border-gray-200 hx:hover:text-black hx:dark:text-gray-200 hx:dark:hover:border-neutral-800 hx:dark:hover:text-white hx:hextra-focus-visible-inset" id="tabs-tab-tabs-os-tabs-0-2" role="tab" type="button" aria-controls="tabs-panel-tabs-os-tabs-0-2" aria-selected="false" tabindex="-1"&gt;&lt;span class="hx:inline-flex hx:items-center hx:gap-1.5"&gt;&lt;span&gt;&lt;svg class="devvm-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges"&gt;&lt;path d="M3 1h5v1H3ZM2 2h1v1H2ZM8 2h1v1H8ZM2 3h1v1H2ZM4 3h1v1H4ZM6 3h1v1H6ZM8 3h1v1H8ZM2 4h1v1H2ZM8 4h1v1H8ZM1 5h1v1H1ZM4 5h3v1H4ZM9 5h1v1H9ZM0 6h1v1H0ZM3 6h1v1H3ZM7 6h1v1H7ZM10 6h1v1H10ZM0 7h1v1H0ZM2 7h1v1H2ZM8 7h1v1H8ZM10 7h1v1H10ZM0 8h1v1H0ZM2 8h1v1H2ZM8 8h1v1H8ZM10 8h1v1H10ZM1 9h2v1H1ZM8 9h2v1H8ZM2 10h7v1H2ZM1 11h3v1H1ZM7 11h3v1H7Z"/&gt;&lt;/svg&gt;Linux&lt;/span&gt;&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;&lt;div class="hextra-tabs-panel hx:rounded-sm hx:pt-6 hx:hidden hx:data-[state=selected]:block" id="tabs-panel-tabs-os-tabs-0-1" role="tabpanel" aria-labelledby="tabs-tab-tabs-os-tabs-0-1" aria-hidden="false" tabindex="0" data-state="selected"&gt;&lt;ul&gt;
+&lt;li&gt;macOS 13 or newer, on arm64 or x86_64.&lt;/li&gt;
+&lt;li&gt;Lima 2.2 or newer, with &lt;code&gt;limactl&lt;/code&gt; on your &lt;code&gt;PATH&lt;/code&gt;. Install it with Homebrew, &lt;code&gt;brew install lima&lt;/code&gt;, or see &lt;a href="https://lima-vm.io/docs/installation/" target="_blank" rel="noopener"&gt;Lima&amp;rsquo;s install guide&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;&lt;div class="hextra-tabs-panel hx:rounded-sm hx:pt-6 hx:hidden hx:data-[state=selected]:block" id="tabs-panel-tabs-os-tabs-0-2" role="tabpanel" aria-labelledby="tabs-tab-tabs-os-tabs-0-2" aria-hidden="true"&gt;&lt;ul&gt;
+&lt;li&gt;Linux on arm64 or x86_64.&lt;/li&gt;
+&lt;li&gt;Lima 2.2 or newer, with &lt;code&gt;limactl&lt;/code&gt; on your &lt;code&gt;PATH&lt;/code&gt;. Install it with Homebrew, &lt;code&gt;brew install lima&lt;/code&gt;, or see &lt;a href="https://lima-vm.io/docs/installation/" target="_blank" rel="noopener"&gt;Lima&amp;rsquo;s install guide&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;QEMU from your package manager: &lt;code&gt;qemu-system-aarch64&lt;/code&gt; (or &lt;code&gt;qemu-system-x86_64&lt;/code&gt;) and &lt;code&gt;qemu-img&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Read and write access to &lt;code&gt;/dev/kvm&lt;/code&gt;. That means virtualization is turned on in the firmware (or nested virtualization, in a VM), and your user is in the &lt;code&gt;kvm&lt;/code&gt; group.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;&lt;/div&gt;
+&lt;script&gt;
+(() =&gt; {
+const group = document.currentScript.parentElement;
+const platform = [navigator.userAgentData?.platform, navigator.platform, navigator.userAgent].join(" ");
+if (!/linux/i.test(platform) || /android/i.test(platform)) return;
+const select = (elements, attribute, on, off) =&gt;
+elements.forEach((element, i) =&gt; {
+const selected = i === 1;
+element.dataset.state = selected ? "selected" : "";
+element.setAttribute(attribute, selected ? on : off);
+if (selected) element.tabIndex = 0;
+else if (attribute === "aria-selected") element.tabIndex = -1;
+else element.removeAttribute("tabindex");
+});
+select(group.querySelectorAll("[role=tab]"), "aria-selected", "true", "false");
+select(group.querySelectorAll("[role=tabpanel]"), "aria-hidden", "false", "true");
+})();
+&lt;/script&gt;
+&lt;/div&gt;
+&lt;p&gt;Every command that needs Lima checks these first and stops at the first one that&amp;rsquo;s missing. &lt;code&gt;devvm doctor&lt;/code&gt; lists them all, each with the command that installs it where there&amp;rsquo;s one to run. That&amp;rsquo;s Homebrew&amp;rsquo;s command for Lima when you have Homebrew, your package manager&amp;rsquo;s for QEMU (apt, dnf, pacman or zypper), and &lt;code&gt;sudo usermod -aG kvm $USER&lt;/code&gt; for &lt;code&gt;/dev/kvm&lt;/code&gt;, after which you log in again. devvm never runs them itself (&lt;a href="https://next.devvm.dev/docs/getting-started/install/#checking-what-devvm-needs"&gt;details&lt;/a&gt;).&lt;/p&gt;
+&lt;h2 data-hextra-search-id="devvms-lima-home"&gt;devvm&amp;rsquo;s Lima home&lt;span class="hx:absolute hx:-mt-20" id="devvms-lima-home"&gt;&lt;/span&gt;
+&lt;a href="#devvms-lima-home" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;devvm keeps its VMs and images in a Lima home of its own, &lt;code&gt;~/.local/share/devvm/lima&lt;/code&gt; (under &lt;code&gt;$XDG_DATA_HOME&lt;/code&gt; when that&amp;rsquo;s set), whatever &lt;code&gt;LIMA_HOME&lt;/code&gt; says. Your own Lima VMs stay where they are, and Lima settings you made for them don&amp;rsquo;t reach devvm&amp;rsquo;s VMs. Because of this, a plain &lt;code&gt;limactl list&lt;/code&gt; doesn&amp;rsquo;t show devvm&amp;rsquo;s VMs, so run &lt;code&gt;devvm limactl list&lt;/code&gt; instead (&lt;a href="#running-limactl"&gt;below&lt;/a&gt;). To keep devvm&amp;rsquo;s VMs somewhere else, such as a sandbox or a shorter path, set &lt;code&gt;DEVVM_LIMA_HOME&lt;/code&gt; to that folder.&lt;/p&gt;
+&lt;p&gt;Lima adds &lt;code&gt;_config/default.yaml&lt;/code&gt; and &lt;code&gt;_config/override.yaml&lt;/code&gt; from its home to every VM it starts, so devvm refuses to start a VM while devvm&amp;rsquo;s Lima home holds either file, and you move them out of it to go on. devvm also refuses a VM that has a network devvm didn&amp;rsquo;t give it, because a second network would get around the VM&amp;rsquo;s proxy, so remove the &lt;code&gt;networks:&lt;/code&gt; entries from the file that devvm names (&lt;a href="https://next.devvm.dev/docs/internals/lima/#a-lima-home-of-its-own"&gt;why&lt;/a&gt;).&lt;/p&gt;
+&lt;h2 data-hextra-search-id="running-limactl"&gt;Running limactl&lt;span class="hx:absolute hx:-mt-20" id="running-limactl"&gt;&lt;/span&gt;
+&lt;a href="#running-limactl" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;devvm limactl ARGS...&lt;/code&gt; runs &lt;code&gt;limactl&lt;/code&gt; with ARGS on devvm&amp;rsquo;s Lima home, in devvm&amp;rsquo;s place. Its input, output, terminal and exit code are &lt;code&gt;limactl&lt;/code&gt;&amp;rsquo;s, and devvm passes every option on to it, &lt;code&gt;--help&lt;/code&gt; included. &lt;code&gt;devvm help limactl&lt;/code&gt; shows devvm&amp;rsquo;s own help for the command.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm limactl list
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm limactl shell --start devvm-img-&amp;lt;key&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;It runs from devvm&amp;rsquo;s data folder, as devvm&amp;rsquo;s own &lt;code&gt;limactl&lt;/code&gt; commands do, so give files by their absolute path.&lt;/li&gt;
+&lt;li&gt;It runs without your SSH agent, so a VM never gets your agent through it, whatever its &lt;a href="https://next.devvm.dev/docs/using/ssh/#agent-forwarding"&gt;SSH agent&lt;/a&gt; choice says (&lt;a href="https://next.devvm.dev/docs/internals/security/"&gt;why&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;A VM you start this way, with &lt;code&gt;devvm limactl start&lt;/code&gt; or &lt;code&gt;shell --start&lt;/code&gt;, runs unconfined, whatever its tier, and &lt;code&gt;devvm ls&lt;/code&gt; shows it as &lt;code&gt;unenforced&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/internals/lima/#confinement"&gt;confinement&lt;/a&gt;). Start project VMs with devvm.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="file-watchers"&gt;File watchers&lt;span class="hx:absolute hx:-mt-20" id="file-watchers"&gt;&lt;/span&gt;
+&lt;a href="#file-watchers" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A dev server or a watcher that runs in the VM, such as Vite, webpack, &lt;code&gt;tsc --watch&lt;/code&gt; or nodemon, learns about changed files from the VM&amp;rsquo;s kernel. The kernel sees every change made in the VM, so a file that a coding agent or a command in the VM&amp;rsquo;s shell writes reaches the watcher at once. Lima&amp;rsquo;s mounts don&amp;rsquo;t pass on the changes you make on this machine, though, so a watcher in the VM misses a file you save in your editor here, and the dev server doesn&amp;rsquo;t reload. On Linux the project folder is a 9p mount, and there a watcher also misses the VM&amp;rsquo;s own changes in the folder&amp;rsquo;s subfolders, and sees only those to files at the top of the folder.&lt;/p&gt;
+&lt;p&gt;To have a watcher see your edits, set it to poll the project folder, which costs some CPU in a large project:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tool&lt;/th&gt;
+&lt;th&gt;Setting&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;chokidar, and tools built on it&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;CHOKIDAR_USEPOLLING=1&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Vite&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;server.watch.usePolling: true&lt;/code&gt; in &lt;code&gt;vite.config&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;webpack&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;watchOptions.poll&lt;/code&gt; in &lt;code&gt;webpack.config.js&lt;/code&gt;, or &lt;code&gt;WATCHPACK_POLLING=true&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;nodemon&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;nodemon --legacy-watch&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tsc --watch&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;watchOptions&amp;quot;: { &amp;quot;watchFile&amp;quot;: &amp;quot;fixedPollingInterval&amp;quot; }&lt;/code&gt; in &lt;code&gt;tsconfig.json&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cargo watch&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;cargo watch --poll&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Set the variables in the VM&amp;rsquo;s shell or in your project&amp;rsquo;s scripts, before the tool starts. Leave Lima&amp;rsquo;s own file event setting, &lt;code&gt;mountInotify&lt;/code&gt;, off, because with it on, commands in the VM that write to the project folder, such as &lt;code&gt;git init&lt;/code&gt;, fail at random (&lt;a href="https://next.devvm.dev/docs/internals/lima/#what-devvm-sets-on-a-vm"&gt;details&lt;/a&gt;).&lt;/p&gt;
+&lt;h2 data-hextra-search-id="cleaning-up"&gt;Cleaning up&lt;span class="hx:absolute hx:-mt-20" id="cleaning-up"&gt;&lt;/span&gt;
+&lt;a href="#cleaning-up" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;devvm gc&lt;/code&gt; deletes devvm&amp;rsquo;s stale and unfinished Lima images and the shared tools that no VM has and that aren&amp;rsquo;t current, and it leaves your VMs as they are. &lt;code&gt;devvm images rm&lt;/code&gt; deletes an image that&amp;rsquo;s current, except on Linux hosts one whose disk VMs use (&lt;a href="https://next.devvm.dev/docs/using/images/#cleaning-up"&gt;cleaning up&lt;/a&gt;). Lima also keeps a download cache of its own, which holds Ubuntu&amp;rsquo;s cloud images that devvm&amp;rsquo;s builds downloaded, and which your own Lima VMs share. &lt;code&gt;devvm gc --caches&lt;/code&gt; deletes the cloud images that devvm downloads and that no image of devvm&amp;rsquo;s names, after listing them and asking, and devvm never runs &lt;code&gt;limactl prune&lt;/code&gt;, which empties the whole cache (&lt;a href="https://next.devvm.dev/docs/using/space/#lima"&gt;what devvm keeps&lt;/a&gt;).&lt;/p&gt;
+&lt;h2 data-hextra-search-id="limits"&gt;Limits&lt;span class="hx:absolute hx:-mt-20" id="limits"&gt;&lt;/span&gt;
+&lt;a href="#limits" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Folder names in VM names are cut short.&lt;/strong&gt; Lima keeps each VM&amp;rsquo;s ssh socket in the VM&amp;rsquo;s folder in its home, and a socket path has at most 104 characters. A long Lima home leaves less room for the name, so set &lt;code&gt;DEVVM_LIMA_HOME&lt;/code&gt; to a shorter folder if devvm says the home is too long, or that a VM&amp;rsquo;s name leaves no room for the folder&amp;rsquo;s name (&lt;a href="https://next.devvm.dev/docs/internals/backends/#vm-names"&gt;VM names&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Paths can&amp;rsquo;t contain commas.&lt;/strong&gt; Lima and QEMU split mount options on commas, so devvm refuses to mount a project folder whose path has one, and it leaves out an agent&amp;rsquo;s folder whose path has one, with a warning.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Disks can grow but not shrink.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mounts on Linux are 9p.&lt;/strong&gt; A 9p share mounts once per guest, and file watchers in the VM miss changes in its subfolders (&lt;a href="#file-watchers"&gt;file watchers&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A VM that Lima reports as failed to start&lt;/strong&gt; still starts, with a warning, when it&amp;rsquo;s running but degraded because one of Lima&amp;rsquo;s boot scripts failed. A VM that doesn&amp;rsquo;t answer over ssh within a minute is stopped instead, and its console log is in its Lima folder (&lt;code&gt;serial*.log&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

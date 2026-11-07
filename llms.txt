@@ -1,0 +1,138 @@
+# devvm
+
+> One VM for every project: an isolated sandbox with your project's toolchain, ready for you or an agent to start coding.
+
+## Docs
+
+- [Docs](https://next.devvm.dev/docs/index.md): The docs are in the order you’ll need them: getting devvm running, using it day to day, staying safe and choosing a backend, then every command, how devvm works and how to change it.
+
+### Getting started
+
+- [Getting started](https://next.devvm.dev/docs/getting-started/index.md): These pages take you from installing devvm to working in your first VM.
+- [Installing](https://next.devvm.dev/docs/getting-started/install.md): This page gets devvm installed and checked on your machine. Upgrading and uninstalling covers what comes later.
+- [Your first VM](https://next.devvm.dev/docs/getting-started/first-vm.md): This page assumes you’ve installed devvm and that devvm doctor finds nothing missing.
+- [Everyday commands](https://next.devvm.dev/docs/getting-started/commands.md): This page lists devvm’s commands in the groups that devvm --help shows them in, and each row links to the page with the details. devvm COMMAND --help shows a command’s examples and flags, the command …
+
+### Using devvm
+
+- [Using devvm](https://next.devvm.dev/docs/using/index.md): These pages cover what you change as you work, such as the images VMs are made from, their ports and size, your coding agents, and the editors you connect with.
+- [Coding agents](https://next.devvm.dev/docs/using/coding-agents.md): devvm runs Claude Code, Codex and opencode in VMs, with each agent's settings and logins from devvm's own store on this machine but never your history. This page covers which agents devvm supports, devvm's agent store and what each VM gets from it, the agents' logins and their history.
+- [Toolchains](https://next.devvm.dev/docs/using/toolchains.md): devvm has four toolchains: node, python, rust and go. A new VM gets the ones its folder’s files call for, which the summary of the new VM shows, unless you customize the VM and check others in the …
+- [SSH and editors](https://next.devvm.dev/docs/using/ssh.md): You can reach each running VM by name from ssh and from editors such as VS Code, and you choose for each VM whether it can use your SSH keys. ssh into VMs explains how devvm’s ssh entries keep a VM …
+- [Ports and size](https://next.devvm.dev/docs/using/ports-size.md): This page covers the ports a VM forwards to this machine and the CPUs, memory and disk it gets. You choose both when devvm makes a VM, and you can change both later with devvm ports and devvm size. …
+- [Managing VMs](https://next.devvm.dev/docs/using/vms.md): This page covers a VM from the time devvm makes it until you delete it: opening, restarting and stopping it, deleting it, listing your VMs, and what devvm does when you run a command in a subfolder or …
+- [Images and tools](https://next.devvm.dev/docs/using/images.md): Every VM is a copy of an image. An image is base with your choice of layers on it, and nothing else. A VM also gets the shared tools you chose for it, such as node or Claude Code, which are mounted …
+- [Customizing images](https://next.devvm.dev/docs/using/customizing.md): You customize images with your own layers, which add what a project needs, and by choosing base’s features, which are devvm’s optional extras that every VM gets. Your layers live in ~/.config/devvm …
+- [Settings and files](https://next.devvm.dev/docs/using/settings.md): devvm writes nothing into your project folders. It keeps the settings you edit in ~/.config/devvm and everything it writes itself in ~/.local/share/devvm, and it reads a few environment variables. …
+- [Working on a clone](https://next.devvm.dev/docs/using/clone.md): devvm --clone gives the VM its own clone of the repo instead of mounting your folder, so nothing in the VM can touch your working tree or .git. Use it when you don’t trust what runs in the VM, such as …
+- [devcontainer.json](https://next.devvm.dev/docs/using/devcontainer.md): devvm supports the Dev Container specification, so a project’s devcontainer.json sets up its VM. When you run devvm in a folder with a .devcontainer/devcontainer.json, or else a .devcontainer.json at …
+- [Links between VMs](https://next.devvm.dev/docs/using/links.md): A link lets a program in one of your VMs reach a TCP service in another by name, as in postgres://db:5432/app or fetch("http://api:3000"). The VM with the service is the target, and you publish its …
+- [A VM's desktop](https://next.devvm.dev/docs/using/desktop.md): A VM has no screen of its own, but with the desktop layer it gets an Xfce desktop, which devvm desktop opens in a window on this machine. This page covers adding the desktop, opening it, its password …
+- [Starting from a container image](https://next.devvm.dev/docs/using/from.md): By default base starts from Ubuntu 26.04’s cloud image. --from IMAGE starts it from a Debian-, Ubuntu- or Alpine-based container image instead, such as node:24, python:3.13, debian:13, alpine:3 or an …
+- [What devvm keeps on this machine](https://next.devvm.dev/docs/using/space.md): devvm, the tools it runs and Lima keep files on this machine outside your project folders. This page lists each of them: what it is, who makes it, where it is, whether devvm can make it again, and how …
+- [The command line](https://next.devvm.dev/docs/using/command-line.md): This page covers what works the same way in every command: the help, flags and their values, the questions devvm asks and what answers them beforehand, --json for scripts, and shell completion. …
+- [Upgrading and uninstalling](https://next.devvm.dev/docs/using/upgrading.md): This page covers upgrading devvm, switching between Homebrew and the install script, and removing devvm with everything it keeps. Each depends on how you installed devvm, and your images, VMs and …
+- [Troubleshooting](https://next.devvm.dev/docs/using/troubleshooting.md): Each section below starts with what you see, then says what to do, with a link to the details.
+- [Known limits](https://next.devvm.dev/docs/using/limits.md): These are the things devvm can’t do, everywhere, on Linux hosts and on Intel Macs.
+
+### Staying safe
+
+- [Staying safe](https://next.devvm.dev/docs/safety/index.md): devvm runs installs, project code and coding agents in a VM, so code you didn’t write can’t read your credentials, run git hooks on this machine or reach your other projects. On the allowlist tier, …
+- [Network tiers](https://next.devvm.dev/docs/safety/network.md): Every VM goes through a proxy that devvm runs for it on this machine, and the VM’s network tier decides what the proxy lets it reach. New VMs get the allowlist tier by default, so they reach only the …
+- [.git protection](https://next.devvm.dev/docs/safety/git-protection.md): The project folder is read-write in the VM, so without protection anything in the VM could add a git hook, or set core.fsmonitor, core.hooksPath or core.sshCommand in .git/config, and your next git …
+- [Attack vectors](https://next.devvm.dev/docs/safety/attack-vectors.md): This page lists the common ways that code you didn’t write gets to run on a developer’s machine or gets data off it, and what devvm does about each one. devvm stops most of them on its own, and the …
+
+### Backends
+
+- [Backends](https://next.devvm.dev/docs/backends/index.md): A backend is the program that runs devvm’s VMs and builds their images. devvm decides what goes into a VM, such as its image, its folders, its size and its network tier, and the backend runs it. Lima …
+- [Lima](https://next.devvm.dev/docs/backends/lima.md): Lima is devvm’s backend, so every new VM runs on it (a VM’s backend). Each project gets a full VM with a kernel of its own, which runs on Apple’s Virtualization framework (vz) on macOS and on QEMU on …
+
+### CLI reference
+
+- [CLI reference](https://next.devvm.dev/docs/cli/index.md): Every devvm command, with its arguments and flags. devvm <command> --help prints the same.
+- [devvm](https://next.devvm.dev/docs/cli/devvm.md): Open a shell in this folder’s VM, creating it first
+- [devvm adopt](https://next.devvm.dev/docs/cli/devvm_adopt.md): Give this folder the VM made for an earlier folder or path
+- [devvm agent](https://next.devvm.dev/docs/cli/devvm_agent.md): Fill devvm’s store of the agents’ settings and logins that every VM gets
+- [devvm agent import](https://next.devvm.dev/docs/cli/devvm_agent_import.md): Copy the agents’ settings and logins from this machine into devvm’s store
+- [devvm agent login](https://next.devvm.dev/docs/cli/devvm_agent_login.md): Log an agent in, in this folder’s VM, and save the login in devvm’s store
+- [devvm agent save](https://next.devvm.dev/docs/cli/devvm_agent_save.md): Copy the agents’ settings from this folder’s VM into devvm’s store
+- [devvm build](https://next.devvm.dev/docs/cli/devvm_build.md): Build an image and the images under it, unless they’re built
+- [devvm clone](https://next.devvm.dev/docs/cli/devvm_clone.md): Show or change whether this folder’s VM has its own clone of the repo
+- [devvm code](https://next.devvm.dev/docs/cli/devvm_code.md): Open this folder’s VM in VS Code over Remote-SSH
+- [devvm completion](https://next.devvm.dev/docs/cli/devvm_completion.md): Print the shell completion script for bash, zsh or fish
+- [devvm desktop](https://next.devvm.dev/docs/cli/devvm_desktop.md): Open this folder’s VM’s desktop in a VNC viewer
+- [devvm doctor](https://next.devvm.dev/docs/cli/devvm_doctor.md): Check what devvm needs on this machine
+- [devvm gc](https://next.devvm.dev/docs/cli/devvm_gc.md): Delete stale images, unused tools, old files and the Nix cache over its cap
+- [devvm git-protect](https://next.devvm.dev/docs/cli/devvm_git-protect.md): Show or change .git protection for this folder’s VM
+- [devvm group](https://next.devvm.dev/docs/cli/devvm_group.md): Show the group this folder’s VM is in
+- [devvm group join](https://next.devvm.dev/docs/cli/devvm_group_join.md): Put this folder’s VM in a group of VMs
+- [devvm group leave](https://next.devvm.dev/docs/cli/devvm_group_leave.md): Take this folder’s VM out of its group
+- [devvm history](https://next.devvm.dev/docs/cli/devvm_history.md): List the saved exports of agents’ history
+- [devvm history export](https://next.devvm.dev/docs/cli/devvm_history_export.md): Save this folder’s VM’s agent history to a .tar.gz
+- [devvm history import](https://next.devvm.dev/docs/cli/devvm_history_import.md): Put an export of agent history into this folder’s VM
+- [devvm host](https://next.devvm.dev/docs/cli/devvm_host.md): Get this folder’s VM ready for ssh and editors, and show its host name
+- [devvm images](https://next.devvm.dev/docs/cli/devvm_images.md): List the images and the shared tools
+- [devvm images rm](https://next.devvm.dev/docs/cli/devvm_images_rm.md): Delete images, by name or by key
+- [devvm layer](https://next.devvm.dev/docs/cli/devvm_layer.md): Make image layers of your own, or change this folder’s VM’s layers
+- [devvm layer add](https://next.devvm.dev/docs/cli/devvm_layer_add.md): Make this folder’s VM again with more layers, then open a shell in it
+- [devvm layer new](https://next.devvm.dev/docs/cli/devvm_layer_new.md): Start a layer of your own
+- [devvm layer rm](https://next.devvm.dev/docs/cli/devvm_layer_rm.md): Make this folder’s VM again without some of its layers, then open a shell in it
+- [devvm limactl](https://next.devvm.dev/docs/cli/devvm_limactl.md): Run Lima’s limactl for debugging, which starts VMs unconfined, whatever their tier
+- [devvm link](https://next.devvm.dev/docs/cli/devvm_link.md): List this folder’s VM’s links to your other VMs
+- [devvm link add](https://next.devvm.dev/docs/cli/devvm_link_add.md): Link this folder’s VM to a port of another VM
+- [devvm link publish](https://next.devvm.dev/docs/cli/devvm_link_publish.md): Show or add the ports this folder’s VM offers to links
+- [devvm link rm](https://next.devvm.dev/docs/cli/devvm_link_rm.md): Remove one of this folder’s VM’s links
+- [devvm link unpublish](https://next.devvm.dev/docs/cli/devvm_link_unpublish.md): Stop offering ports of this folder’s VM to links
+- [devvm ls](https://next.devvm.dev/docs/cli/devvm_ls.md): List the project VMs
+- [devvm network](https://next.devvm.dev/docs/cli/devvm_network.md): Show or change the network tier of this folder’s VM
+- [devvm network allow](https://next.devvm.dev/docs/cli/devvm_network_allow.md): Allow hosts for this folder’s VM
+- [devvm network deny](https://next.devvm.dev/docs/cli/devvm_network_deny.md): Deny hosts for this folder’s VM
+- [devvm network log](https://next.devvm.dev/docs/cli/devvm_network_log.md): Show what this folder’s VM connected to and what its proxy blocked
+- [devvm network rm](https://next.devvm.dev/docs/cli/devvm_network_rm.md): Remove rules from this folder’s VM
+- [devvm ports](https://next.devvm.dev/docs/cli/devvm_ports.md): Show or change which ports this folder’s VM forwards
+- [devvm ports add](https://next.devvm.dev/docs/cli/devvm_ports_add.md): Forward more ports from this folder’s VM
+- [devvm ports rm](https://next.devvm.dev/docs/cli/devvm_ports_rm.md): Stop forwarding some ports from this folder’s VM
+- [devvm rebuild](https://next.devvm.dev/docs/cli/devvm_rebuild.md): Build an image again, and delete the old one
+- [devvm restart](https://next.devvm.dev/docs/cli/devvm_restart.md): Restart this folder’s VM and open a shell in it
+- [devvm retention](https://next.devvm.dev/docs/cli/devvm_retention.md): Show or change what devvm deletes on its own
+- [devvm rm](https://next.devvm.dev/docs/cli/devvm_rm.md): Delete this folder’s VM, or a VM whose folder is gone
+- [devvm secret](https://next.devvm.dev/docs/cli/devvm_secret.md): List the secrets kept on this machine, for VMs to use
+- [devvm secret rm](https://next.devvm.dev/docs/cli/devvm_secret_rm.md): Delete a saved secret
+- [devvm secret set](https://next.devvm.dev/docs/cli/devvm_secret_set.md): Save a secret on this machine
+- [devvm secret unuse](https://next.devvm.dev/docs/cli/devvm_secret_unuse.md): Stop this folder’s VM using a secret
+- [devvm secret use](https://next.devvm.dev/docs/cli/devvm_secret_use.md): Let this folder’s VM use a secret
+- [devvm setup](https://next.devvm.dev/docs/cli/devvm_setup.md): Choose base’s features, and new VMs’ size, network tier, coding agents and layers
+- [devvm size](https://next.devvm.dev/docs/cli/devvm_size.md): Show or change this folder’s VM’s size
+- [devvm space](https://next.devvm.dev/docs/cli/devvm_space.md): Show what devvm keeps on this machine and the space it takes
+- [devvm ssh-agent](https://next.devvm.dev/docs/cli/devvm_ssh-agent.md): Show or change SSH agent forwarding for this folder’s VM
+- [devvm ssh-agent add](https://next.devvm.dev/docs/cli/devvm_ssh-agent_add.md): Load a key into devvm’s own SSH agent
+- [devvm ssh-agent rm](https://next.devvm.dev/docs/cli/devvm_ssh-agent_rm.md): Remove a key from devvm’s own SSH agent
+- [devvm stop](https://next.devvm.dev/docs/cli/devvm_stop.md): Stop this folder’s VM
+- [devvm tools](https://next.devvm.dev/docs/cli/devvm_tools.md): Show or choose this folder’s VM’s shared tools
+- [devvm tools add](https://next.devvm.dev/docs/cli/devvm_tools_add.md): Add shared tools to this folder’s VM, then open a shell in it
+- [devvm tools rm](https://next.devvm.dev/docs/cli/devvm_tools_rm.md): Take shared tools out of this folder’s VM, then open a shell in it
+- [devvm tools update](https://next.devvm.dev/docs/cli/devvm_tools_update.md): Move this folder’s VM to the newest shared tools, then open a shell in it
+- [devvm update](https://next.devvm.dev/docs/cli/devvm_update.md): Bring this folder’s VM up to date, then open a shell in it
+- [devvm upgrade](https://next.devvm.dev/docs/cli/devvm_upgrade.md): Install devvm’s newest release
+
+### How it works
+
+- [How it works](https://next.devvm.dev/docs/internals/index.md): These pages explain how devvm does what the other sections describe, for readers who want to check a claim, such as security reviewers and agents. They name the files devvm ships and the messages it …
+- [Overview](https://next.devvm.dev/docs/internals/overview.md): This page explains what devvm does, step by step, when it makes, opens, changes, stops and deletes a VM, and how it keeps each VM’s state. Everyday commands and Managing VMs cover the same commands …
+- [Installing and updating](https://next.devvm.dev/docs/internals/install.md): This page explains what devvm’s install script downloads and checks, what devvm doctor checks and what devvm doctor --json reports, where devvm keeps its own files, what happens to older versions when …
+- [Images and caching](https://next.devvm.dev/docs/internals/images.md): This page explains how devvm builds images and shared tools, how it keys and caches them, and how it checks what they start from: Ubuntu’s cloud image, a container image from --from, and each tool’s …
+- [Port forwarding](https://next.devvm.dev/docs/internals/ports.md): This page explains how devvm’s forwarder forwards a VM’s ports to this machine, which ports it never takes, and how it runs. Ports and size covers choosing a VM’s ports with --ports and devvm ports.
+- [The desktop](https://next.devvm.dev/docs/internals/desktop.md): This page explains how devvm desktop serves a VM’s desktop on this machine, how it checks a viewer’s password and keeps the clipboard out of the VM, and why devvm uses VNC and never forwards X11. A …
+- [Network tiers](https://next.devvm.dev/docs/internals/network.md): This page explains how devvm confines a VM to its proxy on each tier, what the proxy does with each connection, and how your secrets get into the VM’s requests without the VM holding them. Network …
+- [.git protection](https://next.devvm.dev/docs/internals/git-protection.md): This page explains what devvm locks in a project’s git folder, when it locks and checks the locks again, and what the locks can’t stop. .git protection covers what still works, turning protection on …
+- [Security model](https://next.devvm.dev/docs/internals/security.md): devvm treats everything in a VM as untrusted, including a coding agent with root, because the VM’s user has passwordless sudo. This page explains how devvm keeps that code away from the rest of your …
+- [Backends](https://next.devvm.dev/docs/internals/backends.md): This page explains how a backend gives devvm what it needs to run a VM, what devvm does when a backend lacks something, and how devvm names VMs. devvm runs its VMs on Lima, and another backend would …
+- [Lima](https://next.devvm.dev/docs/internals/lima.md): This page explains how devvm runs its VMs on Lima: the Lima home it keeps them in, how it builds images and clones VMs from them, what it sets in each VM’s config, how it confines VMs and builds, and …
+- [Design notes](https://next.devvm.dev/docs/internals/design.md): For contributors: why devvm is built the way it is, what was tried and dropped, and what’s still open. How each part works is on its own page; the layout and rules are in AGENTS.md.
+
+### Contributing
+
+- [Contributing](https://next.devvm.dev/docs/contributing/index.md): The rules for working in the repo, for people and coding agents alike, are in AGENTS.md.
+- [Testing on other hosts](https://next.devvm.dev/docs/contributing/testing.md): For contributors. The everyday tests, CLI tests and end-to-end tests are in Contributing, and how to raise a package’s coverage baseline is in Coverage; this page is about running them on a host other …
+- [Maintaining](https://next.devvm.dev/docs/contributing/maintaining.md): For maintainers: version bumps and releases. Run the scripts with mise, which puts the pinned GoReleaser and minisign on PATH: mise exec -- scripts/release.sh.
+
