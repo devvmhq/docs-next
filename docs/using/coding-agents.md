@@ -158,6 +158,8 @@ Anthropic doesn't document the requests that Claude Code's login sends, so devvm
 
 On every network tier, the VM's `auth.json` holds placeholders, and its proxy holds the real API keys and logins. The proxy reads them from the login files in devvm's store as it needs them and refreshes ChatGPT logins there, so when the agent in the VM stops getting answers, the proxy's own log, `proxy.log` in `~/.local/share/devvm/vms/<hash>/logs/`, may say that refreshing a login failed or that you're no longer logged in that way. To log in again, run [`devvm agent login codex` or `devvm agent login opencode`](#logging-in-with-devvm-agent-login) in the VM's folder, which also gives that VM the new login's placeholders, and the other VMs get them on their next launch. The proxy puts in opencode's API keys for the providers that [API keys the proxy puts in](#api-keys-the-proxy-puts-in) lists, and its OpenAI and GitHub Copilot logins. The VM's entry for such an API key holds only its type and the placeholder, so the entry's other fields, such as its `metadata`, stay on this machine.
 
+The VM's copy of Codex's `auth.json` holds only what Codex needs for its API key and its ChatGPT login: the placeholders, how it logs in, when it last refreshed, and the IDs of the account and the login. devvm keeps every other field on this machine, because the VM's proxy can't put it in, and it names those fields at every launch. That includes Codex's other ways to log in, such as a personal access token or an Amazon Bedrock key, so Codex in a VM can't use them. To use Codex in a VM, log in with ChatGPT or an OpenAI API key ([logging in with devvm agent login](#logging-in-with-devvm-agent-login)). devvm treats Claude Code's account state in `~/.claude.json` the same way, so the VM gets only the account fields that Claude Code writes there today, and devvm names any other field at every launch.
+
 devvm keeps every other entry of opencode's `auth.json` on this machine too, because devvm doesn't know which hosts it's for, so the VM gets that entry without its key or its tokens, and devvm warns you about each at every launch. That's an API key for any other provider, such as Azure's or a local model server's, a well-known login, which an organization's own opencode config sets up, and any other OAuth login, such as Copilot Enterprise's. The VM keeps only the fields of a withheld entry that name the account or how it logs in, such as its type, its `enterpriseUrl` and its expiry, so opencode in the VM doesn't use that provider. To use an OAuth login's provider in the VM, log in to it with an API key on this machine and import the login again.
 
 To give the VM one provider's API key as it is, such as a local model server's that the VM's proxy can't put in, list the provider under `opencode` in `config.toml`'s `[pass-keys]` table ([config.toml](settings.md#configtoml)), as you would for [pi](#pi-logins). The provider is its entry's name in opencode's `auth.json`, such as `ollama`. Every VM with opencode then gets that entry whole, its `metadata` included, and opencode 2 in the VM imports it into its database too, and devvm says so at each launch. It applies only to entries with an API key, because a VM never gets a login's tokens, and only to providers whose keys the proxy doesn't put in, because a key the proxy puts in is always its placeholder:
@@ -224,18 +226,20 @@ When the store's `settings.json` sets `defaultProjectTrust` to `always`, devvm w
 
 ### API keys the proxy puts in
 
-The VM's proxy puts in opencode's and pi's API keys for the providers in this table. The ID is the provider's entry in the agent's `auth.json` and the value that `devvm agent login --provider` takes. The VM's copy of the login holds a placeholder in place of each of these keys, and on every network tier the proxy swaps it for the key in the header that the table names, in requests to the provider's hosts alone, so any other host gets only the placeholder. The proxy also allows those hosts on port 443, as it allows the hosts of every secret it puts in, so you don't allow them yourself:
+The VM's proxy puts in opencode's and pi's API keys for the providers in this table. The ID is the provider's entry in the agent's `auth.json` and the value that `devvm agent login --provider` takes. The VM's copy of the login holds a placeholder in place of each of these keys, and on every network tier the proxy swaps it for the key in the headers that the table names, in requests to the provider's hosts alone, so any other host gets only the placeholder. Where the table names a path, the proxy swaps it only in requests for paths that start with it, so the rest of that host gets the placeholder too. The proxy also allows those hosts on port 443, as it allows the hosts of every secret it puts in, so you don't allow them yourself:
 
-| ID | Provider | Hosts | Header |
-| --- | --- | --- | --- |
-| `anthropic` | Anthropic | `api.anthropic.com` | `x-api-key` |
-| `deepseek` | DeepSeek | `api.deepseek.com` | `Authorization` |
-| `google` | Google Gemini | `generativelanguage.googleapis.com` | `x-goog-api-key` |
-| `groq` | Groq | `api.groq.com` | `Authorization` |
-| `mistral` | Mistral | `api.mistral.ai` | `Authorization` |
-| `openai` | OpenAI | `api.openai.com` | `Authorization` |
-| `openrouter` | OpenRouter | `openrouter.ai` | `Authorization` |
-| `xai` | xAI | `api.x.ai` | `Authorization` |
+| ID | Provider | Hosts | Paths | Headers |
+| --- | --- | --- | --- | --- |
+| `anthropic` | Anthropic | `api.anthropic.com` | any | `x-api-key` |
+| `deepseek` | DeepSeek | `api.deepseek.com` | any | `Authorization` |
+| `google` | Google Gemini | `generativelanguage.googleapis.com` | any | `x-goog-api-key` |
+| `groq` | Groq | `api.groq.com` | any | `Authorization` |
+| `mistral` | Mistral | `api.mistral.ai` | any | `Authorization` |
+| `openai` | OpenAI | `api.openai.com` | any | `Authorization` |
+| `openrouter` | OpenRouter | `openrouter.ai` | `/api/` | `Authorization`, `x-api-key` |
+| `xai` | xAI | `api.x.ai` | any | `Authorization` |
+
+OpenRouter's key goes in either of its two headers, because pi sends it in `x-api-key` for OpenRouter's Anthropic models, as Anthropic's own API takes a key, and in `Authorization` for every other model. The proxy swaps the placeholder only when the header holds the placeholder and nothing else, or for `Authorization`, `Bearer`, one space and the placeholder, which is how opencode and pi send each of these keys. A header that holds anything else beside the placeholder, or a second header of the same name, keeps the placeholder, so code in the VM can't surround your key with text of its own, which a provider that quotes part of a key it refuses could show back to it.
 
 The placeholder for an OpenAI key starts with `sk-`, as an OpenAI API key does, because pi takes an OpenAI key that starts any other way for a Sign in with ChatGPT login and then leaves settings such as the longest reply it wants out of its requests. The Google Gemini key is the Gemini API's, for Google AI Studio. Vertex AI logs in with a Google Cloud account or a service account instead, so devvm withholds its logins, as it does any other provider's. These providers' keys never need `[pass-keys]`, and when it lists one of them all the same, the VM still gets the key's placeholder, not the key, and devvm notes at each launch that you can take the provider out.
 
@@ -291,6 +295,7 @@ Besides the agents' config, every launch sets the VM up from this machine's sett
 - git's `user.name` and `user.email`, as git has them in the project folder;
 - telemetry off where an environment variable can't turn it off, which is Go's, and Codex's analytics and metrics;
 - every agent's environment variables, which turn off its self-update and its telemetry ([supported agents](#supported-agents));
+- every toolchain's environment variables, such as the ones that turn off .NET's telemetry and send `npm i -g` into your home, and the folders where the toolchains' global installs go, on the `PATH` ([toolchains](toolchains.md));
 - `(devvm)` at the start of the prompt.
 
 On every network tier, the launch also installs the VM's own CA and the next one, points apt, sudo, ssh, the [docker layer](images.md#docker)'s Docker and the [nix layer](images.md#nix)'s Nix at the proxy, and adds `devvm-why`, which shows what the proxy blocked lately. It also tells the agents, in `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`, why a request may fail ([inside the VM](../safety/network.md#inside-the-vm)). The VM's secrets go in `~/.config/devvm/env` in the VM, which login shells read, and that file holds their placeholders.

@@ -212,7 +212,7 @@ select(group.querySelectorAll("[role=tabpanel]"), "aria-hidden", "false", "true"
 &lt;li&gt;&lt;strong&gt;A smaller machine works too.&lt;/strong&gt; devvm gives base fewer CPUs and less memory there (&lt;a href="https://next.devvm.dev/docs/using/ports-size/#size-and-ports"&gt;size and ports&lt;/a&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Your first VM needs 8 GiB of free disk space&lt;/strong&gt;, for the base image, the VM&amp;rsquo;s own image and the shared tools (&lt;a href="https://next.devvm.dev/docs/using/ports-size/#free-space"&gt;free space&lt;/a&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Everything else goes inside the VMs,&lt;/strong&gt; including the toolchains, the coding agents and Docker for your projects (&lt;a href="https://next.devvm.dev/docs/using/images/#built-in-layers"&gt;docker layer&lt;/a&gt;), so you don&amp;rsquo;t install any of the &lt;a href="https://next.devvm.dev/docs/using/coding-agents/#supported-agents"&gt;supported coding agents&lt;/a&gt; on this machine (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#devvms-agent-store"&gt;devvm&amp;rsquo;s agent store&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Linux hosts&lt;/strong&gt; have a few limits, such as no &lt;code&gt;.git&lt;/code&gt; protection (&lt;a href="https://next.devvm.dev/docs/using/limits/#linux-hosts"&gt;Known limits&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux hosts&lt;/strong&gt; have a few limits, such as &lt;code&gt;.git&lt;/code&gt; protection that needs a kernel which lets devvm use a user namespace, which Ubuntu 23.10 and newer don&amp;rsquo;t by default (&lt;a href="https://next.devvm.dev/docs/using/limits/#linux-hosts"&gt;Known limits&lt;/a&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="checking-what-devvm-needs"&gt;Checking what devvm needs&lt;span class="hx:absolute hx:-mt-20" id="checking-what-devvm-needs"&gt;&lt;/span&gt;
 &lt;a href="#checking-what-devvm-needs" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Run &lt;code&gt;devvm doctor&lt;/code&gt;:&lt;/p&gt;
@@ -280,7 +280,7 @@ data-copied-label="Copied!"
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Confirm, or customize it.&lt;/strong&gt; Confirm to make the VM as shown, or customize it to choose its toolchains, coding agents, layers, network tier, ports and size first (&lt;a href="https://next.devvm.dev/docs/using/images/#what-a-new-vm-gets"&gt;what a new VM gets&lt;/a&gt;). Flags such as &lt;code&gt;--agents claude&lt;/code&gt; choose a part beforehand, and devvm asks nothing when the flags choose everything.&lt;/p&gt;
 &lt;div class="devvm-callout devvm-callout-tip"&gt;
-&lt;p class="devvm-callout-title"&gt;&lt;svg class="devvm-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges"&gt;&lt;path d="M3 1h5v1H3ZM2 2h1v1H2ZM8 2h1v1H8ZM1 3h1v3H1ZM3 3h1v1H3ZM9 3h1v3H9ZM2 6h1v1H2ZM8 6h1v1H8ZM3 7h1v1H3ZM7 7h1v1H7ZM3 8h5v1H3ZM3 10h5v1H3ZM4 11h3v1H4Z"/&gt;&lt;/svg&gt; Tip&lt;/p&gt;&lt;p&gt;Keep allowlist, the default, unless the VM needs more. The allowlist &lt;a href="https://next.devvm.dev/docs/safety/network/"&gt;network tier&lt;/a&gt; limits the VM to the hosts you allow, and every tier keeps your secrets on your machine.&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;p class="devvm-callout-title"&gt;&lt;svg class="devvm-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges"&gt;&lt;path d="M3 1h5v1H3ZM2 2h1v1H2ZM8 2h1v1H8ZM1 3h1v3H1ZM3 3h1v1H3ZM9 3h1v3H9ZM2 6h1v1H2ZM8 6h1v1H8ZM3 7h1v1H3ZM7 7h1v1H7ZM3 8h5v1H3ZM3 10h5v1H3ZM4 11h3v1H4Z"/&gt;&lt;/svg&gt; Tip&lt;/p&gt;&lt;p&gt;Keep allowlist, the default, unless the VM needs more. The allowlist &lt;a href="https://next.devvm.dev/docs/safety/network/"&gt;network tier&lt;/a&gt; limits the VM to the hosts you allow, and every tier keeps your secrets on your machine. When you don&amp;rsquo;t know yet which hosts the project needs, choose &lt;code&gt;learn&lt;/code&gt;: the VM reaches any public host while it learns them, and &lt;code&gt;devvm network lock&lt;/code&gt; then keeps the ones you choose on the allowlist tier (&lt;a href="https://next.devvm.dev/docs/safety/network/#learning-the-hosts-a-vm-needs"&gt;learning the hosts a VM needs&lt;/a&gt;).&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Wait for the base image.&lt;/strong&gt; The first time, devvm builds it with the extras you chose, which takes a few minutes once, and later VMs start in seconds (&lt;a href="https://next.devvm.dev/docs/using/images/"&gt;images&lt;/a&gt;).&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -364,7 +364,7 @@ data-copied-label="Copied!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Use it for an agent working unattended, a repo you don&amp;rsquo;t trust, or on Linux hosts, which have no &lt;code&gt;.git&lt;/code&gt; protection (&lt;a href="https://next.devvm.dev/docs/using/clone/"&gt;working on a clone&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Use it for an agent working unattended, a repo you don&amp;rsquo;t trust, or on a Linux host whose kernel doesn&amp;rsquo;t let devvm protect &lt;code&gt;.git&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/using/clone/"&gt;working on a clone&lt;/a&gt;).&lt;/p&gt;
 &lt;h2 data-hextra-search-id="coming-back-to-it"&gt;Coming back to it&lt;span class="hx:absolute hx:-mt-20" id="coming-back-to-it"&gt;&lt;/span&gt;
 &lt;a href="#coming-back-to-it" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The VM belongs to its folder, and its subfolders use it too (&lt;a href="https://next.devvm.dev/docs/using/vms/#a-subfolder"&gt;a subfolder&lt;/a&gt;):&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -592,12 +592,16 @@ data-copied-label="Copied!"
 &lt;td&gt;show or change what new VMs forward (&lt;a href="https://next.devvm.dev/docs/using/ports-size/#ports"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;devvm network [open|internet|allowlist|none]&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;show this folder&amp;rsquo;s VM&amp;rsquo;s tier, &lt;code&gt;open&lt;/code&gt;, &lt;code&gt;internet&lt;/code&gt;, &lt;code&gt;allowlist&lt;/code&gt;, &lt;code&gt;none&lt;/code&gt; or &lt;code&gt;unenforced&lt;/code&gt;, and then its allowlist, file by file, or give it a tier: between the confined tiers at once, and into or out of open from its next start, offering to restart a running VM now (&lt;a href="https://next.devvm.dev/docs/safety/network/#choosing-a-tier"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;devvm network [open|internet|learn|allowlist|none]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;show this folder&amp;rsquo;s VM&amp;rsquo;s tier, &lt;code&gt;open&lt;/code&gt;, &lt;code&gt;internet&lt;/code&gt;, &lt;code&gt;internet (learning)&lt;/code&gt;, &lt;code&gt;allowlist&lt;/code&gt;, &lt;code&gt;none&lt;/code&gt; or &lt;code&gt;unenforced&lt;/code&gt;, and then its allowlist, file by file, or give it a tier: between the confined tiers at once, and into or out of open from its next start, offering to restart a running VM now, and with &lt;code&gt;learn&lt;/code&gt;, internet while it learns the hosts it needs (&lt;a href="https://next.devvm.dev/docs/safety/network/#choosing-a-tier"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm network -g [open|internet|allowlist|none]&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;show or change new VMs&amp;rsquo; tier, which is &lt;code&gt;allowlist&lt;/code&gt; until you change it (&lt;a href="https://next.devvm.dev/docs/safety/network/#choosing-a-tier"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm network lock [--all] [--none]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;choose which of the hosts this folder&amp;rsquo;s VM learned it keeps, add them to its own rules, and give it the allowlist tier (&lt;a href="https://next.devvm.dev/docs/safety/network/#locking-it"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm network allow|deny|rm RULE... [-g]&lt;/code&gt;&lt;/td&gt;

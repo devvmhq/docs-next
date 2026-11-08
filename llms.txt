@@ -87,6 +87,7 @@
 - [devvm network](https://next.devvm.dev/docs/cli/devvm_network.md): Show or change the network tier of this folder’s VM
 - [devvm network allow](https://next.devvm.dev/docs/cli/devvm_network_allow.md): Allow hosts for this folder’s VM
 - [devvm network deny](https://next.devvm.dev/docs/cli/devvm_network_deny.md): Deny hosts for this folder’s VM
+- [devvm network lock](https://next.devvm.dev/docs/cli/devvm_network_lock.md): Lock this folder’s VM to the hosts it learned, on the allowlist tier
 - [devvm network log](https://next.devvm.dev/docs/cli/devvm_network_log.md): Show what this folder’s VM connected to and what its proxy blocked
 - [devvm network rm](https://next.devvm.dev/docs/cli/devvm_network_rm.md): Remove rules from this folder’s VM
 - [devvm ports](https://next.devvm.dev/docs/cli/devvm_ports.md): Show or change which ports this folder’s VM forwards
@@ -135,4 +136,9 @@
 - [Contributing](https://next.devvm.dev/docs/contributing/index.md): The rules for working in the repo, for people and coding agents alike, are in AGENTS.md.
 - [Testing on other hosts](https://next.devvm.dev/docs/contributing/testing.md): For contributors. The everyday tests, CLI tests and end-to-end tests are in Contributing, and how to raise a package’s coverage baseline is in Coverage; this page is about running them on a host other …
 - [Maintaining](https://next.devvm.dev/docs/contributing/maintaining.md): For maintainers: version bumps and releases. Run the scripts with mise, which puts the pinned GoReleaser and minisign on PATH: mise exec -- scripts/release.sh.
+- [The structure test and owners](https://next.devvm.dev/docs/contributing/structure.md): internal/structure parses every Go file in the repo, tests and every platform’s included, generated files left out, and checks what linters don’t. mise run test runs it. Each failure starts with its …
+- [Backends, toolchains and agents](https://next.devvm.dev/docs/contributing/extending.md): devvm runs every VM on Lima, but the rest of devvm reaches Lima only through the backend.Backend interface in internal/backend, so another backend is an addition rather than a change to the callers. A …
+- [The CLI and its messages](https://next.devvm.dev/docs/contributing/cli.md): devvm’s commands follow one set of rules, so that a user who knows a few of them can guess the rest. A bare verb acts on this folder’s VM, anything else goes under its noun, and a bare noun shows or …
+- [Tests](https://next.devvm.dev/docs/contributing/tests.md): Go tests are table tests next to the code they test, and they share a few helpers, so each one reads the same way:
+- [Writing docs](https://next.devvm.dev/docs/contributing/docs.md): The site is Hugo with the Hextra theme, built from docs/. Hextra is a Hugo module pinned in docs/go.mod; update it with hugo mod get github.com/imfing/hextra@<version> in docs/.
 
