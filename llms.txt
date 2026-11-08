@@ -16,7 +16,7 @@
 ### Using devvm
 
 - [Using devvm](https://next.devvm.dev/docs/using/index.md): These pages cover what you change as you work, such as the images VMs are made from, their ports and size, your coding agents, and the editors you connect with.
-- [Coding agents](https://next.devvm.dev/docs/using/coding-agents.md): devvm runs Claude Code, Codex and opencode in VMs, with each agent's settings and logins from devvm's own store on this machine but never your history. This page covers which agents devvm supports, devvm's agent store and what each VM gets from it, the agents' logins and their history.
+- [Coding agents](https://next.devvm.dev/docs/using/coding-agents.md): devvm runs coding agents such as Claude Code in VMs, with each agent's settings and logins from devvm's own store on this machine but never your history. This page covers which agents devvm supports, devvm's agent store and what each VM gets from it, the agents' logins and their history.
 - [Toolchains](https://next.devvm.dev/docs/using/toolchains.md): devvm has these toolchains:
 - [SSH and editors](https://next.devvm.dev/docs/using/ssh.md): You can reach each running VM by name from ssh and from editors such as VS Code, and you choose for each VM whether it can use your SSH keys. ssh into VMs explains how devvm’s ssh entries keep a VM …
 - [Ports and size](https://next.devvm.dev/docs/using/ports-size.md): This page covers the ports a VM forwards to this machine and the CPUs, memory and disk it gets. You choose both when devvm makes a VM, and you can change both later with devvm ports and devvm size. …

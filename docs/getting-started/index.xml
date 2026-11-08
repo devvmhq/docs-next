@@ -211,7 +211,7 @@ select(group.querySelectorAll("[role=tabpanel]"), "aria-hidden", "false", "true"
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;A smaller machine works too.&lt;/strong&gt; devvm gives base fewer CPUs and less memory there (&lt;a href="https://next.devvm.dev/docs/using/ports-size/#size-and-ports"&gt;size and ports&lt;/a&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Your first VM needs 8 GiB of free disk space&lt;/strong&gt;, for the base image, the VM&amp;rsquo;s own image and the shared tools (&lt;a href="https://next.devvm.dev/docs/using/ports-size/#free-space"&gt;free space&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Everything else goes inside the VMs,&lt;/strong&gt; including the toolchains, the coding agents and Docker for your projects (&lt;a href="https://next.devvm.dev/docs/using/images/#built-in-layers"&gt;docker layer&lt;/a&gt;), so you don&amp;rsquo;t install Claude Code, Codex or opencode on this machine (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#devvms-agent-store"&gt;devvm&amp;rsquo;s agent store&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Everything else goes inside the VMs,&lt;/strong&gt; including the toolchains, the coding agents and Docker for your projects (&lt;a href="https://next.devvm.dev/docs/using/images/#built-in-layers"&gt;docker layer&lt;/a&gt;), so you don&amp;rsquo;t install any of the &lt;a href="https://next.devvm.dev/docs/using/coding-agents/#supported-agents"&gt;supported coding agents&lt;/a&gt; on this machine (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#devvms-agent-store"&gt;devvm&amp;rsquo;s agent store&lt;/a&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Linux hosts&lt;/strong&gt; have a few limits, such as no &lt;code&gt;.git&lt;/code&gt; protection (&lt;a href="https://next.devvm.dev/docs/using/limits/#linux-hosts"&gt;Known limits&lt;/a&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="checking-what-devvm-needs"&gt;Checking what devvm needs&lt;span class="hx:absolute hx:-mt-20" id="checking-what-devvm-needs"&gt;&lt;/span&gt;
@@ -338,7 +338,7 @@ data-copied-label="Copied!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Run &lt;code&gt;claude&lt;/code&gt;, &lt;code&gt;codex&lt;/code&gt; or &lt;code&gt;opencode&lt;/code&gt;, whichever the VM has (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#running-an-agent"&gt;running an agent&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Run the agent the VM has by its name, such as &lt;code&gt;claude&lt;/code&gt;, which the &lt;a href="https://next.devvm.dev/docs/using/coding-agents/#supported-agents"&gt;supported agents&lt;/a&gt; table lists (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#running-an-agent"&gt;running an agent&lt;/a&gt;).&lt;/p&gt;
 &lt;h2 data-hextra-search-id="whats-in-the-vm"&gt;What&amp;rsquo;s in the VM&lt;span class="hx:absolute hx:-mt-20" id="whats-in-the-vm"&gt;&lt;/span&gt;
 &lt;a href="#whats-in-the-vm" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Your project folder&lt;/strong&gt;, read-write, so your editor and the VM share the same files. It&amp;rsquo;s the only folder of yours the VM sees, and its &lt;code&gt;.git&lt;/code&gt; hooks and config are locked (&lt;a href="https://next.devvm.dev/docs/safety/git-protection/"&gt;.git protection&lt;/a&gt;).&lt;/li&gt;
@@ -766,7 +766,7 @@ data-copied-label="Copied!"
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm agent login AGENT [--setup-token] [--device-code] [--api-key]&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;log Claude Code in to your Claude subscription inside this folder&amp;rsquo;s VM, or get a Claude Code token with &lt;code&gt;--setup-token&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#claude-code-login"&gt;details&lt;/a&gt;), or log Codex or opencode in to ChatGPT there, in a browser on this machine or with a code, or save an API key, and keep the login in devvm&amp;rsquo;s agent store for every VM (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#logging-in-with-devvm-agent-login"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;log an agent in inside this folder&amp;rsquo;s VM, such as Claude Code to your Claude subscription, or get a Claude Code token with &lt;code&gt;--setup-token&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#claude-code-login"&gt;details&lt;/a&gt;), or log an agent in to ChatGPT there, in a browser on this machine or with a code, or save an API key, and keep the login in devvm&amp;rsquo;s agent store for every VM (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#logging-in-with-devvm-agent-login"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm agent save [AGENT...]&lt;/code&gt;&lt;/td&gt;
