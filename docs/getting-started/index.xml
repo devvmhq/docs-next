@@ -640,6 +640,10 @@ data-copied-label="Copied!"
 &lt;td&gt;save your Claude Code token or GitHub token on this machine, so that VMs get a placeholder and their proxy puts the secret in (&lt;a href="https://next.devvm.dev/docs/safety/network/#saving-and-binding-secrets"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm secret set NAME --host HOST --env VARIABLE&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;save a secret of your own, such as an API key, which VMs that use it send only to its hosts (&lt;a href="https://next.devvm.dev/docs/safety/network/#your-own-secrets"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm secret use|unuse NAME&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;let this folder&amp;rsquo;s VM use a secret, or stop it, though a VM with Claude Code always uses &lt;code&gt;claude&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/safety/network/#saving-and-binding-secrets"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;

@@ -2887,6 +2887,11 @@ data-copied-label="Copied!"
 &lt;td&gt;&lt;code&gt;devvm secret rm&lt;/code&gt; deletes one&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;code&gt;custom-secrets.json&lt;/code&gt;, &lt;code&gt;custom-secrets.lock&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;the &lt;a href="https://next.devvm.dev/docs/safety/network/#your-own-secrets"&gt;secrets of your own&lt;/a&gt;, each with its hosts, header, variable and prefix but never its value, and an empty file that each devvm changing them locks&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;devvm secret rm&lt;/code&gt; takes a secret out, and both stay, taking almost no space&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;code&gt;vms/&amp;lt;hash&amp;gt;/&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;one folder for each VM, which holds everything devvm keeps for it in its data folder. &lt;code&gt;&amp;lt;hash&amp;gt;&lt;/code&gt; is the hash of the project folder&amp;rsquo;s path that the VM&amp;rsquo;s name ends with. The folder holds the VM&amp;rsquo;s &lt;a href="https://next.devvm.dev/docs/internals/overview/#a-vms-state"&gt;state&lt;/a&gt; in &lt;code&gt;vm.json&lt;/code&gt;, which records the VM&amp;rsquo;s name, its ssh alias, its image, folder, backend and settings and the version of the devvm that made it, and the VM&amp;rsquo;s own network rules in &lt;code&gt;policy&lt;/code&gt;. The files of its proxy, port forwarder, link session and sandbox are in &lt;code&gt;run/&lt;/code&gt;, with the VM&amp;rsquo;s host keys for its current start in &lt;code&gt;run/known_hosts&lt;/code&gt;, which devvm reads again each time the VM starts, and its logs are in &lt;code&gt;logs/&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;devvm rm&lt;/code&gt; deletes the whole folder with the VM&lt;/td&gt;
