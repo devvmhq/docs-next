@@ -487,7 +487,11 @@ data-copied-label="Copied!"
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;--clone&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;create the VM with its own clone of the repo instead of mounting the folder (&lt;a href="https://next.devvm.dev/docs/using/clone/"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;create the VM with its own clone of the repo, or of each repo in a folder of repos, instead of mounting the folder (&lt;a href="https://next.devvm.dev/docs/using/clone/"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;--repos all|none|LIST&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;with &lt;code&gt;--clone&lt;/code&gt; in a folder of repos, the repos the VM gets a clone of, such as &lt;code&gt;--repos frontend,backend&lt;/code&gt;, in place of the picker (&lt;a href="https://next.devvm.dev/docs/using/clone/#folders-of-repos"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;--no-git-protect&lt;/code&gt;&lt;/td&gt;
@@ -535,6 +539,14 @@ data-copied-label="Copied!"
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;git fetch devvm&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;on this machine, fetch the VM&amp;rsquo;s work as &lt;code&gt;devvm/&amp;lt;branch&amp;gt;&lt;/code&gt;, to review before you merge it (&lt;a href="https://next.devvm.dev/docs/using/clone/#fetching-the-vms-work"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm clone fetch [--json]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;fetch the VM&amp;rsquo;s work into every repo it has a clone of, and list the new or moved branches, each with its repos (&lt;a href="https://next.devvm.dev/docs/using/clone/#fetching-the-vms-work"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm clone add PATH&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;copy one more repo of a folder of repos into the VM, at the same path (&lt;a href="https://next.devvm.dev/docs/using/clone/#adding-a-repo"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm rm&lt;/code&gt;&lt;/td&gt;
@@ -608,6 +620,10 @@ data-copied-label="Copied!"
 &lt;td&gt;add allow or deny rules to this folder&amp;rsquo;s VM&amp;rsquo;s own, or remove them, at once, and with &lt;code&gt;-g&lt;/code&gt;, change yours for every VM (&lt;a href="https://next.devvm.dev/docs/safety/network/#changing-rules"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm network allow|deny|rm RULE... --method METHODS --path PATH&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;narrow those rules to some of a host&amp;rsquo;s requests, such as only &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;HEAD&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/safety/network/#rules-by-method-and-path"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm network log [--follow] [-n N] [--blocked]&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;show what this folder&amp;rsquo;s VM connected to and what its proxy blocked (&lt;a href="https://next.devvm.dev/docs/safety/network/#logs"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
@@ -628,7 +644,7 @@ data-copied-label="Copied!"
 &lt;td&gt;show or change this folder&amp;rsquo;s VM&amp;rsquo;s &lt;code&gt;.git&lt;/code&gt; protection, while it&amp;rsquo;s stopped (&lt;a href="https://next.devvm.dev/docs/safety/git-protection/#turning-it-on-or-off"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;devvm clone [on|off] [--force] [--no-export] [--clean-home] [--no-clone-check]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;devvm clone [on|off] [--force] [--no-export] [--clean-home] [--no-clone-check] [--repos LIST]&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;show whether this folder&amp;rsquo;s VM has its own clone of the repo, or make it again with one, or with the folder mounted, keeping its home folder and settings, after asking, then open a shell in it (&lt;a href="https://next.devvm.dev/docs/using/clone/#switching-a-vm-that-exists"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
