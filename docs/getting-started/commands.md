@@ -63,6 +63,7 @@ These options are for a new VM, and only `devvm` takes them. A VM that exists ig
 | `devvm tools update` | move this folder's VM to the newest shared tools, and only those, then open a shell in it ([details](../using/toolchains.md#adding-and-removing-tools)) |
 | `devvm size [--cpus N] [--memory GiB] [--disk GiB]` | show or change this folder's VM's CPUs, memory and disk ([details](../using/ports-size.md#size)) |
 | `devvm size -g ...` | show or change the size new VMs get ([details](../using/ports-size.md#size)) |
+| `devvm mount-cache [none]` | show how this folder's VM caches its project folder on a Linux host, `none`, which new VMs get, or Lima's `mmap`, which can lose writes, or switch it to `none` from the VM's next start ([details](../backends/lima.md#the-project-folders-cache)) |
 | `devvm ports [all\|none\|LIST]` | show or change which ports this folder's VM forwards to this machine's `localhost`, even while it runs ([details](../using/ports-size.md#ports)) |
 | `devvm ports add\|rm LIST` | forward more ports, or stop forwarding some ([details](../using/ports-size.md#ports)) |
 | `devvm ports -g ...` | show or change what new VMs forward ([details](../using/ports-size.md#ports)) |
@@ -72,10 +73,11 @@ These options are for a new VM, and only `devvm` takes them. A VM that exists ig
 | `devvm network allow\|deny\|rm RULE... [-g]` | add allow or deny rules to this folder's VM's own, or remove them, at once, and with `-g`, change yours for every VM ([details](../safety/network.md#changing-rules)) |
 | `devvm network allow\|deny\|rm RULE... --method METHODS --path PATH` | narrow those rules to some of a host's requests, such as only `GET` and `HEAD` ([details](../safety/network.md#rules-by-method-and-path)) |
 | `devvm network log [--follow] [-n N] [--blocked]` | show what this folder's VM connected to and what its proxy blocked ([details](../safety/network.md#logs)) |
+| `devvm network transparent [on\|off]` | show whether this folder's VM sends tools that ignore the proxy settings to its proxy by the names they look up, and where that comes from, or give the VM its own setting, from its next launch ([details](../safety/network.md#tools-that-ignore-the-proxy)) |
 | `devvm ssh-agent [on\|devvm\|off]` | show this folder's VM's SSH agent forwarding, which is `off`, `on` for yours or `devvm` for devvm's own, then the keys devvm's own agent holds and those added to it, or change the forwarding from the VM's next start ([details](../using/ssh.md#agent-forwarding)) |
 | `devvm ssh-agent add KEY_FILE [--confirm] [--lifetime DURATION]` | load a key into devvm's own agent, and load it again whenever a VM needs it ([details](../using/ssh.md#devvms-own-agent)) |
 | `devvm ssh-agent rm KEY_FILE` | take a key out of devvm's own agent, so devvm doesn't load it again ([details](../using/ssh.md#devvms-own-agent)) |
-| `devvm git-protect [on\|strict\|off]` | show or change this folder's VM's `.git` protection, while it's stopped ([details](../safety/git-protection.md#turning-it-on-or-off)) |
+| `devvm git-protect [on\|off]` | show or change this folder's VM's `.git` protection, while it's stopped ([details](../safety/git-protection.md#turning-it-on-or-off)) |
 | `devvm clone [on\|off] [--force] [--no-export] [--clean-home] [--no-clone-check] [--repos LIST]` | show whether this folder's VM has its own clone of the repo, or make it again with one, or with the folder mounted, keeping its home folder and settings, after asking, then open a shell in it ([details](../using/clone.md#switching-a-vm-that-exists)) |
 | `devvm secret`, `devvm secret rm NAME` | list the secrets, whether each is saved and the VMs using it, or delete a saved one ([details](../safety/network.md#saving-and-binding-secrets)) |
 | `devvm secret set claude\|github [--stdin]` | save your Claude Code token or GitHub token on this machine, so that VMs get a placeholder and their proxy puts the secret in ([details](../safety/network.md#saving-and-binding-secrets)) |

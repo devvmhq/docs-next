@@ -90,6 +90,7 @@ data-copied-label="Copied!"
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_limactl/"&gt;devvm limactl&lt;/a&gt;: Run Lima&amp;rsquo;s limactl for debugging, which starts VMs unconfined, whatever their tier&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_link/"&gt;devvm link&lt;/a&gt;: List this folder&amp;rsquo;s VM&amp;rsquo;s links to your other VMs&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_ls/"&gt;devvm ls&lt;/a&gt;: List the project VMs&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_mount-cache/"&gt;devvm mount-cache&lt;/a&gt;: Show or change how this folder&amp;rsquo;s VM caches its project folder&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_network/"&gt;devvm network&lt;/a&gt;: Show or change the network tier of this folder&amp;rsquo;s VM&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_ports/"&gt;devvm ports&lt;/a&gt;: Show or change which ports this folder&amp;rsquo;s VM forwards&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_rebuild/"&gt;devvm rebuild&lt;/a&gt;: Build an image again, and delete the old one&lt;/li&gt;
@@ -1093,9 +1094,9 @@ data-copied-label="Copied!"
 &lt;/ul&gt;</description></item><item><title>devvm git-protect</title><link>https://next.devvm.dev/docs/cli/devvm_git-protect/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/cli/devvm_git-protect/</guid><description>
 &lt;p&gt;Show or change .git protection for this folder&amp;rsquo;s VM&lt;/p&gt;
 &lt;h2 data-hextra-search-id="synopsis"&gt;Synopsis&lt;span class="hx:absolute hx:-mt-20" id="synopsis"&gt;&lt;/span&gt;
-&lt;a href="#synopsis" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Show this folder&amp;rsquo;s VM&amp;rsquo;s .git protection, which locks the git hooks and config that run code on this machine, as on, strict, off, or clone for a &amp;ndash;clone VM. devvm git-protect on, strict or off changes it at once on a stopped VM, and on a running one when it next stops, so in a terminal devvm offers to restart it now.&lt;/p&gt;
+&lt;a href="#synopsis" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Show this folder&amp;rsquo;s VM&amp;rsquo;s .git protection, which locks the git hooks and config that run code on this machine, as on, off, or clone for a &amp;ndash;clone VM. devvm git-protect on or off changes it at once on a stopped VM, and on a running one when it next stops, so in a terminal devvm offers to restart it now.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm git-protect [on|strict|off] [flags]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm git-protect [on|off] [flags]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
 &lt;button
 class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
 title="Copy code"
@@ -2531,6 +2532,75 @@ data-copied-label="Copied!"
 &lt;h2 data-hextra-search-id="see-also"&gt;See also&lt;span class="hx:absolute hx:-mt-20" id="see-also"&gt;&lt;/span&gt;
 &lt;a href="#see-also" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm/"&gt;devvm&lt;/a&gt;: Open a shell in this folder&amp;rsquo;s VM, creating it first&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>devvm mount-cache</title><link>https://next.devvm.dev/docs/cli/devvm_mount-cache/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/cli/devvm_mount-cache/</guid><description>
+&lt;p&gt;Show or change how this folder&amp;rsquo;s VM caches its project folder&lt;/p&gt;
+&lt;h2 data-hextra-search-id="synopsis"&gt;Synopsis&lt;span class="hx:absolute hx:-mt-20" id="synopsis"&gt;&lt;/span&gt;
+&lt;a href="#synopsis" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Show how this folder&amp;rsquo;s VM caches its project folder on a Linux host: none, which new VMs get, or mmap for a VM made before devvm chose none, which can lose writes and breaks SQLite and Gradle there. devvm mount-cache none switches it from the VM&amp;rsquo;s next start, so in a terminal devvm offers to restart a running VM now.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm mount-cache [none] [flags]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="examples"&gt;Examples&lt;span class="hx:absolute hx:-mt-20" id="examples"&gt;&lt;/span&gt;
+&lt;a href="#examples" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm mount-cache # show the VM&amp;#39;s cache mode
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm mount-cache none # stop the VM losing writes, from its next start&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="options"&gt;Options&lt;span class="hx:absolute hx:-mt-20" id="options"&gt;&lt;/span&gt;
+&lt;a href="#options" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -h, --help help for mount-cache
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --here use this folder&amp;#39;s own VM, never that of a folder it&amp;#39;s inside
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --json print it as one JSON object, for scripts
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --parent use the VM of the nearest folder this one is inside, even across a git repo of its own&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="options-inherited-from-parent-commands"&gt;Options inherited from parent commands&lt;span class="hx:absolute hx:-mt-20" id="options-inherited-from-parent-commands"&gt;&lt;/span&gt;
+&lt;a href="#options-inherited-from-parent-commands" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --no-input never ask, and fail where devvm would ask, naming the flag that answers it
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -v, --verbose show the output of the commands devvm runs instead of a status line&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="docs"&gt;Docs&lt;span class="hx:absolute hx:-mt-20" id="docs"&gt;&lt;/span&gt;
+&lt;a href="#docs" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://next.devvm.dev/docs/backends/lima/#the-project-folders-cache"&gt;The docs page for devvm mount-cache&lt;/a&gt; explains it in full.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="see-also"&gt;See also&lt;span class="hx:absolute hx:-mt-20" id="see-also"&gt;&lt;/span&gt;
+&lt;a href="#see-also" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm/"&gt;devvm&lt;/a&gt;: Open a shell in this folder&amp;rsquo;s VM, creating it first&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>devvm network</title><link>https://next.devvm.dev/docs/cli/devvm_network/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/cli/devvm_network/</guid><description>
 &lt;p&gt;Show or change the network tier of this folder&amp;rsquo;s VM&lt;/p&gt;
 &lt;h2 data-hextra-search-id="synopsis"&gt;Synopsis&lt;span class="hx:absolute hx:-mt-20" id="synopsis"&gt;&lt;/span&gt;
@@ -2610,6 +2680,7 @@ data-copied-label="Copied!"
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_network_lock/"&gt;devvm network lock&lt;/a&gt;: Lock this folder&amp;rsquo;s VM to the hosts it learned, on the allowlist tier&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_network_log/"&gt;devvm network log&lt;/a&gt;: Show what this folder&amp;rsquo;s VM connected to and what its proxy blocked&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_network_rm/"&gt;devvm network rm&lt;/a&gt;: Remove rules from this folder&amp;rsquo;s VM&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_network_transparent/"&gt;devvm network transparent&lt;/a&gt;: Show or change transparent mode for this folder&amp;rsquo;s VM&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>devvm network allow</title><link>https://next.devvm.dev/docs/cli/devvm_network_allow/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/cli/devvm_network_allow/</guid><description>
 &lt;p&gt;Allow hosts for this folder&amp;rsquo;s VM&lt;/p&gt;
 &lt;h2 data-hextra-search-id="synopsis"&gt;Synopsis&lt;span class="hx:absolute hx:-mt-20" id="synopsis"&gt;&lt;/span&gt;
@@ -2971,6 +3042,76 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="docs"&gt;Docs&lt;span class="hx:absolute hx:-mt-20" id="docs"&gt;&lt;/span&gt;
 &lt;a href="#docs" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://next.devvm.dev/docs/safety/network/#changing-rules"&gt;The docs page for devvm network rm&lt;/a&gt; explains it in full.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="see-also"&gt;See also&lt;span class="hx:absolute hx:-mt-20" id="see-also"&gt;&lt;/span&gt;
+&lt;a href="#see-also" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_network/"&gt;devvm network&lt;/a&gt;: Show or change the network tier of this folder&amp;rsquo;s VM&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>devvm network transparent</title><link>https://next.devvm.dev/docs/cli/devvm_network_transparent/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/cli/devvm_network_transparent/</guid><description>
+&lt;p&gt;Show or change transparent mode for this folder&amp;rsquo;s VM&lt;/p&gt;
+&lt;h2 data-hextra-search-id="synopsis"&gt;Synopsis&lt;span class="hx:absolute hx:-mt-20" id="synopsis"&gt;&lt;/span&gt;
+&lt;a href="#synopsis" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Show whether this folder&amp;rsquo;s VM sends tools that ignore the proxy settings to its proxy by the names they look up, on or off, and where that comes from: the VM&amp;rsquo;s own setting, config.toml&amp;rsquo;s transparent-proxy, or devvm&amp;rsquo;s default, on. devvm network transparent on or off gives the VM its own setting, which applies from its next launch, while it&amp;rsquo;s on a confined tier.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm network transparent [on|off] [flags]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="examples"&gt;Examples&lt;span class="hx:absolute hx:-mt-20" id="examples"&gt;&lt;/span&gt;
+&lt;a href="#examples" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm network transparent # show the VM&amp;#39;s transparent mode and where it comes from
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm network transparent off # turn it off for this VM, from its next launch
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm network transparent on # turn it on again, whatever config.toml says&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="options"&gt;Options&lt;span class="hx:absolute hx:-mt-20" id="options"&gt;&lt;/span&gt;
+&lt;a href="#options" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -h, --help help for transparent
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --here use this folder&amp;#39;s own VM, never that of a folder it&amp;#39;s inside
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --json print it as one JSON object, for scripts
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --parent use the VM of the nearest folder this one is inside, even across a git repo of its own&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="options-inherited-from-parent-commands"&gt;Options inherited from parent commands&lt;span class="hx:absolute hx:-mt-20" id="options-inherited-from-parent-commands"&gt;&lt;/span&gt;
+&lt;a href="#options-inherited-from-parent-commands" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --no-input never ask, and fail where devvm would ask, naming the flag that answers it
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -v, --verbose show the output of the commands devvm runs instead of a status line&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="docs"&gt;Docs&lt;span class="hx:absolute hx:-mt-20" id="docs"&gt;&lt;/span&gt;
+&lt;a href="#docs" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://next.devvm.dev/docs/safety/network/#tools-that-ignore-the-proxy"&gt;The docs page for devvm network transparent&lt;/a&gt; explains it in full.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="see-also"&gt;See also&lt;span class="hx:absolute hx:-mt-20" id="see-also"&gt;&lt;/span&gt;
 &lt;a href="#see-also" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_network/"&gt;devvm network&lt;/a&gt;: Show or change the network tier of this folder&amp;rsquo;s VM&lt;/li&gt;
@@ -3390,151 +3531,4 @@ data-copied-label="Copied!"
 &lt;h2 data-hextra-search-id="see-also"&gt;See also&lt;span class="hx:absolute hx:-mt-20" id="see-also"&gt;&lt;/span&gt;
 &lt;a href="#see-also" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm/"&gt;devvm&lt;/a&gt;: Open a shell in this folder&amp;rsquo;s VM, creating it first&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>devvm rm</title><link>https://next.devvm.dev/docs/cli/devvm_rm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/cli/devvm_rm/</guid><description>
-&lt;p&gt;Delete this folder&amp;rsquo;s VM, or a VM whose folder is gone&lt;/p&gt;
-&lt;h2 data-hextra-search-id="synopsis"&gt;Synopsis&lt;span class="hx:absolute hx:-mt-20" id="synopsis"&gt;&lt;/span&gt;
-&lt;a href="#synopsis" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Delete this folder&amp;rsquo;s VM and what devvm keeps for it, or the VM you name when its folder is gone, after asking in a terminal without &amp;ndash;no-input, which &amp;ndash;force never answers when its folder is on a disk that isn&amp;rsquo;t connected. When its image has an agent, devvm first exports the agents&amp;rsquo; history, unless you give &amp;ndash;no-export. A &amp;ndash;clone VM&amp;rsquo;s work that this repo hasn&amp;rsquo;t fetched is offered for fetching first, unless you give &amp;ndash;no-clone-check.&lt;/p&gt;
-&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm rm [VM] [flags]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="examples"&gt;Examples&lt;span class="hx:absolute hx:-mt-20" id="examples"&gt;&lt;/span&gt;
-&lt;a href="#examples" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm rm # delete this folder&amp;#39;s VM, after asking
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm rm --force # delete it without asking, as a script must
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm rm --no-export # delete it without exporting the agents&amp;#39; history
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm rm --no-clone-check # delete a --clone VM without checking its clone, losing its unfetched work
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm rm devvm-web-71a99b1076d92c # delete a VM whose folder is gone, by its name as devvm ls lists it&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="options"&gt;Options&lt;span class="hx:absolute hx:-mt-20" id="options"&gt;&lt;/span&gt;
-&lt;a href="#options" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -f, --force don&amp;#39;t ask to confirm, which devvm needs without a terminal or with --no-input
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -h, --help help for rm
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --here use this folder&amp;#39;s own VM, never that of a folder it&amp;#39;s inside
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --no-clone-check don&amp;#39;t check a --clone VM&amp;#39;s clone for unfetched commits and uncommitted changes first, which are lost
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --no-export don&amp;#39;t export the agents&amp;#39; history first
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --parent use the VM of the nearest folder this one is inside, even across a git repo of its own&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="options-inherited-from-parent-commands"&gt;Options inherited from parent commands&lt;span class="hx:absolute hx:-mt-20" id="options-inherited-from-parent-commands"&gt;&lt;/span&gt;
-&lt;a href="#options-inherited-from-parent-commands" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --no-input never ask, and fail where devvm would ask, naming the flag that answers it
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -v, --verbose show the output of the commands devvm runs instead of a status line&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="docs"&gt;Docs&lt;span class="hx:absolute hx:-mt-20" id="docs"&gt;&lt;/span&gt;
-&lt;a href="#docs" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://next.devvm.dev/docs/using/vms/#deleting-a-vm"&gt;The docs page for devvm rm&lt;/a&gt; explains it in full.&lt;/p&gt;
-&lt;h2 data-hextra-search-id="see-also"&gt;See also&lt;span class="hx:absolute hx:-mt-20" id="see-also"&gt;&lt;/span&gt;
-&lt;a href="#see-also" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm/"&gt;devvm&lt;/a&gt;: Open a shell in this folder&amp;rsquo;s VM, creating it first&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>devvm secret</title><link>https://next.devvm.dev/docs/cli/devvm_secret/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/cli/devvm_secret/</guid><description>
-&lt;p&gt;List the secrets kept on this machine, for VMs to use&lt;/p&gt;
-&lt;h2 data-hextra-search-id="synopsis"&gt;Synopsis&lt;span class="hx:absolute hx:-mt-20" id="synopsis"&gt;&lt;/span&gt;
-&lt;a href="#synopsis" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;List the secrets devvm keeps on this machine, claude for the Claude Code token, github for a GitHub token, proxy for the password of the company proxy that config.toml names, and your own, with each one&amp;rsquo;s hosts, header and variable, whether it&amp;rsquo;s saved and the VMs using it. A VM gets a placeholder, and its proxy puts the secret into requests for the secret&amp;rsquo;s hosts. No VM gets proxy, which devvm&amp;rsquo;s proxies send only to the company proxy.&lt;/p&gt;
-&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;devvm secret [flags]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="examples"&gt;Examples&lt;span class="hx:absolute hx:-mt-20" id="examples"&gt;&lt;/span&gt;
-&lt;a href="#examples" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm secret # list the secrets and the VMs using each
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm secret set github # save a GitHub token, asking for it
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm secret set stripe --host api.stripe.com --env STRIPE_API_KEY --prefix sk_ # save a secret of your own for api.stripe.com
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; devvm secret use github # let this folder&amp;#39;s VM use it&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="options"&gt;Options&lt;span class="hx:absolute hx:-mt-20" id="options"&gt;&lt;/span&gt;
-&lt;a href="#options" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -h, --help help for secret
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --json print it as one JSON object, for scripts&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="options-inherited-from-parent-commands"&gt;Options inherited from parent commands&lt;span class="hx:absolute hx:-mt-20" id="options-inherited-from-parent-commands"&gt;&lt;/span&gt;
-&lt;a href="#options-inherited-from-parent-commands" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
-&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --no-input never ask, and fail where devvm would ask, naming the flag that answers it
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -v, --verbose show the output of the commands devvm runs instead of a status line&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
-&lt;button
-class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-title="Copy code"
-aria-label="Copy code"
-data-copied-label="Copied!"
-&gt;
-&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
-&lt;/button&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h2 data-hextra-search-id="docs"&gt;Docs&lt;span class="hx:absolute hx:-mt-20" id="docs"&gt;&lt;/span&gt;
-&lt;a href="#docs" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://next.devvm.dev/docs/safety/network/#saving-and-binding-secrets"&gt;The docs page for devvm secret&lt;/a&gt; explains it in full.&lt;/p&gt;
-&lt;h2 data-hextra-search-id="see-also"&gt;See also&lt;span class="hx:absolute hx:-mt-20" id="see-also"&gt;&lt;/span&gt;
-&lt;a href="#see-also" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm/"&gt;devvm&lt;/a&gt;: Open a shell in this folder&amp;rsquo;s VM, creating it first&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_secret_rm/"&gt;devvm secret rm&lt;/a&gt;: Delete a saved secret&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_secret_set/"&gt;devvm secret set&lt;/a&gt;: Save a secret on this machine&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_secret_unuse/"&gt;devvm secret unuse&lt;/a&gt;: Stop this folder&amp;rsquo;s VM using a secret&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://next.devvm.dev/docs/cli/devvm_secret_use/"&gt;devvm secret use&lt;/a&gt;: Let this folder&amp;rsquo;s VM use a secret&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

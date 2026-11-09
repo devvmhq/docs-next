@@ -592,6 +592,10 @@ data-copied-label="Copied!"
 &lt;td&gt;show or change the size new VMs get (&lt;a href="https://next.devvm.dev/docs/using/ports-size/#size"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm mount-cache [none]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;show how this folder&amp;rsquo;s VM caches its project folder on a Linux host, &lt;code&gt;none&lt;/code&gt;, which new VMs get, or Lima&amp;rsquo;s &lt;code&gt;mmap&lt;/code&gt;, which can lose writes, or switch it to &lt;code&gt;none&lt;/code&gt; from the VM&amp;rsquo;s next start (&lt;a href="https://next.devvm.dev/docs/backends/lima/#the-project-folders-cache"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm ports [all|none|LIST]&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;show or change which ports this folder&amp;rsquo;s VM forwards to this machine&amp;rsquo;s &lt;code&gt;localhost&lt;/code&gt;, even while it runs (&lt;a href="https://next.devvm.dev/docs/using/ports-size/#ports"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
@@ -628,6 +632,10 @@ data-copied-label="Copied!"
 &lt;td&gt;show what this folder&amp;rsquo;s VM connected to and what its proxy blocked (&lt;a href="https://next.devvm.dev/docs/safety/network/#logs"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm network transparent [on|off]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;show whether this folder&amp;rsquo;s VM sends tools that ignore the proxy settings to its proxy by the names they look up, and where that comes from, or give the VM its own setting, from its next launch (&lt;a href="https://next.devvm.dev/docs/safety/network/#tools-that-ignore-the-proxy"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm ssh-agent [on|devvm|off]&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;show this folder&amp;rsquo;s VM&amp;rsquo;s SSH agent forwarding, which is &lt;code&gt;off&lt;/code&gt;, &lt;code&gt;on&lt;/code&gt; for yours or &lt;code&gt;devvm&lt;/code&gt; for devvm&amp;rsquo;s own, then the keys devvm&amp;rsquo;s own agent holds and those added to it, or change the forwarding from the VM&amp;rsquo;s next start (&lt;a href="https://next.devvm.dev/docs/using/ssh/#agent-forwarding"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
@@ -640,7 +648,7 @@ data-copied-label="Copied!"
 &lt;td&gt;take a key out of devvm&amp;rsquo;s own agent, so devvm doesn&amp;rsquo;t load it again (&lt;a href="https://next.devvm.dev/docs/using/ssh/#devvms-own-agent"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;devvm git-protect [on|strict|off]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;devvm git-protect [on|off]&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;show or change this folder&amp;rsquo;s VM&amp;rsquo;s &lt;code&gt;.git&lt;/code&gt; protection, while it&amp;rsquo;s stopped (&lt;a href="https://next.devvm.dev/docs/safety/git-protection/#turning-it-on-or-off"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
