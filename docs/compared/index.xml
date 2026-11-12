@@ -1,11 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>devvm – Compared to other tools</title><link>https://next.devvm.dev/docs/compared/</link><description>Recent content in Compared to other tools on devvm</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://next.devvm.dev/docs/compared/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Sandboxes</title><link>https://next.devvm.dev/docs/compared/docker-sandboxes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://next.devvm.dev/docs/compared/docker-sandboxes/</guid><description>
-&lt;p&gt;Docker Sandboxes, the &lt;code&gt;sbx&lt;/code&gt; command, is the tool closest to devvm: each sandbox is a VM with its own kernel on your machine, the project folder is mounted read-write, outbound traffic goes through a proxy on your machine, and API keys and agents&amp;rsquo; logins stay outside the VM. This page sets the two side by side. Last checked on 2026-11-08 against Docker&amp;rsquo;s docs, which each row links to.&lt;/p&gt;
+&lt;p&gt;Docker Sandboxes, the &lt;code&gt;sbx&lt;/code&gt; command, is the tool closest to devvm: each sandbox is a VM with its own kernel on your machine, the project folder is mounted read-write, outbound traffic goes through a proxy on your machine, and API keys and agents&amp;rsquo; logins stay outside the VM. This page sets the two side by side. Last checked on 2026-11-08 against Docker&amp;rsquo;s docs, which each row links to, and against Docker&amp;rsquo;s isolation and network rules pages again on 2026-11-12.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="whats-the-same"&gt;What&amp;rsquo;s the same&lt;span class="hx:absolute hx:-mt-20" id="whats-the-same"&gt;&lt;/span&gt;
 &lt;a href="#whats-the-same" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;A VM with its own kernel.&lt;/strong&gt; Docker&amp;rsquo;s sandboxes are microVMs with their own Linux kernel and Docker Engine, and the agent runs as a user with sudo (&lt;a href="https://docs.docker.com/ai/sandboxes/security/isolation/" target="_blank" rel="noopener"&gt;isolation&lt;/a&gt;). devvm&amp;rsquo;s VMs are full Lima VMs, whose user also has sudo.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;The folder mounted, or a clone.&lt;/strong&gt; Both mount the project folder read-write by default, and both have a mode in which the VM works on a clone of its own instead (&lt;a href="https://docs.docker.com/ai/sandboxes/security/isolation/" target="_blank" rel="noopener"&gt;isolation&lt;/a&gt;, &lt;a href="https://next.devvm.dev/docs/using/clone/"&gt;working on a clone&lt;/a&gt;).&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Placeholders for API keys.&lt;/strong&gt; In both, the VM holds a placeholder, and a proxy on your machine puts the real value into requests (&lt;a href="https://docs.docker.com/ai/sandboxes/configuration/credentials/" target="_blank" rel="noopener"&gt;credentials&lt;/a&gt;, &lt;a href="https://next.devvm.dev/docs/safety/network/#secrets"&gt;secrets&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Agents&amp;rsquo; logins on your machine.&lt;/strong&gt; Both keep the logins of the agents they support outside the VM and give the VM placeholders, and in both, one login for each agent serves every VM. Docker Sandboxes does this for Claude Code, Codex, Cursor and Droid (&lt;a href="https://docs.docker.com/ai/sandboxes/configuration/credentials/" target="_blank" rel="noopener"&gt;credentials&lt;/a&gt;), and devvm for Claude Code, Codex and opencode (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#logins-made-in-a-vm"&gt;coding agents&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Agents&amp;rsquo; logins on your machine.&lt;/strong&gt; Both keep the logins of the agents they support outside the VM and give the VM placeholders, and in both, one login for each agent serves every VM. Docker Sandboxes does this for Claude Code, Codex, Cursor and Droid (&lt;a href="https://docs.docker.com/ai/sandboxes/configuration/credentials/" target="_blank" rel="noopener"&gt;credentials&lt;/a&gt;), and devvm for Claude Code, Codex, opencode and Cursor&amp;rsquo;s CLI, and for pi&amp;rsquo;s API keys (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#logins-made-in-a-vm"&gt;coding agents&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rules by method and path.&lt;/strong&gt; Both let a rule for a host name its HTTP methods and its path, so a VM can read from an API without changing anything there (&lt;a href="https://docs.docker.com/ai/governance/local/network-rules/" target="_blank" rel="noopener"&gt;network rules&lt;/a&gt;, &lt;a href="https://next.devvm.dev/docs/safety/network/#rules-by-method-and-path"&gt;rules by method and path&lt;/a&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="what-differs"&gt;What differs&lt;span class="hx:absolute hx:-mt-20" id="what-differs"&gt;&lt;/span&gt;
 &lt;a href="#what-differs" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
@@ -39,13 +40,23 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Rules&lt;/td&gt;
-&lt;td&gt;host and port&lt;/td&gt;
-&lt;td&gt;host, and HTTP method, path and query (&lt;a href="https://docs.docker.com/ai/governance/local/network-rules/" target="_blank" rel="noopener"&gt;network rules&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;host and port, and HTTP method and path&lt;/td&gt;
+&lt;td&gt;host and port, and HTTP method, path and URL query (&lt;a href="https://docs.docker.com/ai/governance/local/network-rules/" target="_blank" rel="noopener"&gt;network rules&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Learning the hosts a VM needs&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;--network learn&lt;/code&gt;, then &lt;code&gt;devvm network lock&lt;/code&gt; keeps the hosts you choose (&lt;a href="https://next.devvm.dev/docs/safety/network/#learning-the-hosts-a-vm-needs"&gt;learning&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;none on its network rules page, which has a log of blocked connections (&lt;a href="https://docs.docker.com/ai/governance/local/network-rules/" target="_blank" rel="noopener"&gt;network rules&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;.git&lt;/code&gt; in the folder&lt;/td&gt;
-&lt;td&gt;hooks and config locked on macOS, and read-only in the VM on Linux where the kernel allows it, or watched where it doesn&amp;rsquo;t (&lt;a href="https://next.devvm.dev/docs/safety/git-protection/"&gt;.git protection&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;hooks and config locked on macOS, and read-only in the VM on Linux where the kernel allows it, or watched where it doesn&amp;rsquo;t, for the folder&amp;rsquo;s own repo and each repo nested up to four folders down (&lt;a href="https://next.devvm.dev/docs/safety/git-protection/"&gt;.git protection&lt;/a&gt;)&lt;/td&gt;
 &lt;td&gt;writable by the agent in direct mode, which the docs warn about, along with CI and editor config (&lt;a href="https://docs.docker.com/ai/sandboxes/security/isolation/" target="_blank" rel="noopener"&gt;isolation&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;The clone&lt;/td&gt;
+&lt;td&gt;your local branches, tags, uncommitted changes, stash, the repo&amp;rsquo;s settings and hooks, submodules and Git LFS files, with the work fetched back by &lt;code&gt;devvm clone fetch&lt;/code&gt; as &lt;code&gt;devvm/&amp;lt;branch&amp;gt;&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/using/clone/#whats-copied"&gt;what&amp;rsquo;s copied&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;a private clone with its own index, refs and working tree, fetched back through a &lt;code&gt;sandbox-&amp;lt;sandbox-name&amp;gt;&lt;/code&gt; remote, and the docs don&amp;rsquo;t say what it copies (&lt;a href="https://docs.docker.com/ai/sandboxes/security/isolation/" target="_blank" rel="noopener"&gt;isolation&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Claude Code&amp;rsquo;s login&lt;/td&gt;
@@ -78,13 +89,18 @@
 &lt;td&gt;Claude Code, Codex, Copilot, Cursor, Devin, Docker Agent, Droid, Gemini, Kiro and OpenCode (&lt;a href="https://docs.docker.com/ai/sandboxes/agents/" target="_blank" rel="noopener"&gt;agents&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;Images from the clipboard&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;devvm paste&lt;/code&gt; sends an image, a PDF or a copied file into the VM, and never text (&lt;a href="https://next.devvm.dev/docs/using/coding-agents/#pasting-images"&gt;pasting images&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;the sandbox can read images from the host&amp;rsquo;s clipboard if you turn that on, and can write text there but not read it (&lt;a href="https://docs.docker.com/ai/sandboxes/security/isolation/" target="_blank" rel="noopener"&gt;isolation&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Snapshots&lt;/td&gt;
 &lt;td&gt;none&lt;/td&gt;
 &lt;td&gt;a sandbox saved as a template (&lt;a href="https://docs.docker.com/reference/cli/sbx/template/save/" target="_blank" rel="noopener"&gt;template save&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Secrets from other stores&lt;/td&gt;
-&lt;td&gt;saved with &lt;code&gt;devvm secret set&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;saved with &lt;code&gt;devvm secret set&lt;/code&gt;, each with the hosts, methods and paths it goes to (&lt;a href="https://next.devvm.dev/docs/safety/network/#your-own-secrets"&gt;your own secrets&lt;/a&gt;)&lt;/td&gt;
 &lt;td&gt;1Password, AWS Secrets Manager or a command (&lt;a href="https://docs.docker.com/ai/sandboxes/configuration/credentials/" target="_blank" rel="noopener"&gt;credentials&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -95,4 +111,7 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 data-hextra-search-id="choosing-between-them"&gt;Choosing between them&lt;span class="hx:absolute hx:-mt-20" id="choosing-between-them"&gt;&lt;/span&gt;
-&lt;a href="#choosing-between-them" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Choose Docker Sandboxes if you need Windows, rules by HTTP method and path, one of the agents devvm doesn&amp;rsquo;t support, or a sandbox you can move to Docker&amp;rsquo;s cloud. Choose devvm if you want open source without an account, toolchains shared between projects, or &lt;code&gt;.git&lt;/code&gt; protected from the VM in the folder you work in.&lt;/p&gt;</description></item></channel></rss>
+&lt;a href="#choosing-between-them" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Choose Docker Sandboxes&lt;/strong&gt; if you need Windows, rules by URL query, one of the agents devvm doesn&amp;rsquo;t support, a sandbox saved as a template, or a sandbox you can move to Docker&amp;rsquo;s cloud.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Choose devvm&lt;/strong&gt; if you want open source without an account, toolchains shared between projects, &lt;code&gt;.git&lt;/code&gt; protected from the VM in the folder you work in and in the repos nested in it, or a VM that learns the hosts it needs before you lock its allowlist.&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>
