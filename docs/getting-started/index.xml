@@ -468,7 +468,7 @@ data-copied-label="Copied!"
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;In a folder without a VM of its own, each of these commands but &lt;code&gt;devvm adopt&lt;/code&gt; uses the VM of the nearest folder with one that it&amp;rsquo;s inside, and says which VM that is. &lt;code&gt;--here&lt;/code&gt; and &lt;code&gt;--parent&lt;/code&gt; choose which VM a command uses (&lt;a href="https://next.devvm.dev/docs/using/vms/#a-subfolder"&gt;a subfolder&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;These options are for a new VM, and only &lt;code&gt;devvm&lt;/code&gt; takes them. A VM that exists ignores them with a warning (&lt;a href="https://next.devvm.dev/docs/using/images/#what-a-new-vm-gets"&gt;what a new VM gets&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;These options are for a new VM, so a VM that exists ignores them with a warning, and only &lt;code&gt;devvm&lt;/code&gt; takes them (&lt;a href="https://next.devvm.dev/docs/using/images/#what-a-new-vm-gets"&gt;what a new VM gets&lt;/a&gt;):&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -542,15 +542,11 @@ data-copied-label="Copied!"
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm --clone&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;make this folder&amp;rsquo;s VM with its own clone of the repo, copy your branches into it and open a shell in the clone (&lt;a href="https://next.devvm.dev/docs/using/clone/"&gt;details&lt;/a&gt;)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;git fetch devvm&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;on this machine, fetch the VM&amp;rsquo;s work as &lt;code&gt;devvm/&amp;lt;branch&amp;gt;&lt;/code&gt;, to review before you merge it (&lt;a href="https://next.devvm.dev/docs/using/clone/#fetching-the-vms-work"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;make this folder&amp;rsquo;s VM with its own clone of the repo, copy your repo into it and open a shell in the clone (&lt;a href="https://next.devvm.dev/docs/using/clone/"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm clone fetch [--json]&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;fetch the VM&amp;rsquo;s work into every repo it has a clone of, and list the new or moved branches, each with its repos (&lt;a href="https://next.devvm.dev/docs/using/clone/#fetching-the-vms-work"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;on this machine, fetch the VM&amp;rsquo;s work as &lt;code&gt;devvm/&amp;lt;branch&amp;gt;&lt;/code&gt; into every repo it has a clone of, with its Git LFS objects, to review before you merge it, and list the new or moved branches, each with its repos (&lt;a href="https://next.devvm.dev/docs/using/clone/#fetching-the-vms-work"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm clone add PATH&lt;/code&gt;&lt;/td&gt;

@@ -172,3 +172,9 @@ Then devvm upgrade removes the other versions in `<prefix>/lib/devvm`, as the sc
 
 With Homebrew, devvm upgrade runs `brew upgrade devvm`, or `brew upgrade devvm-rc` for a `devvm-rc` keg, into the run log, after asking, and checks nothing of its own, because Homebrew checks the source against the formula's checksum.
 
+## The release check
+
+When you run devvm in a terminal, it checks at most once a day for a newer release ([the release check](../using/settings.md#the-release-check)). The check reads only where GitHub's latest devvm release is, over HTTPS, and sends nothing about you or your machine. The latest release is never a prerelease, so the check never announces one. The exception is a devvm that Homebrew's `devvm-rc` formula installed, which follows prereleases: its check reads GitHub's list of devvm's newest releases instead, as [devvm upgrade](#devvm-upgrade) describes, and it announces a newer prerelease or release, whichever is newest.
+
+The check runs beside the launch, so it never makes devvm wait, and when you're offline it says nothing and tries again the next day. The line comes from what the last check found, so a release that came out since then shows up at the launch after the next check. devvm keeps what the check found in `~/.local/share/devvm/cache/release.json`, and `devvm doctor` shows it.
+
