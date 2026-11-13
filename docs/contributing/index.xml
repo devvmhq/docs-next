@@ -213,7 +213,7 @@ data-copied-label="Copied!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;The check passes when its function returns nil. Its title is its key in the timings, so a changed title starts its times again: give a new check a title that says what it proves. When a check fails, the runner prints its error, each line led by &lt;code&gt;failed:&lt;/code&gt;, and then the last 5 lines that its commands printed, or as many as &lt;code&gt;Tail(n)&lt;/code&gt; asks for. A check that the run has nothing for is &lt;code&gt;s.Skip(title, why)&lt;/code&gt;, which counts it, so that runs compare their counts.&lt;/p&gt;
+&lt;p&gt;The check passes when its function returns nil. Its title is its key in the timings, so a changed title starts its times again: give a new check a title that says what it proves. When a check fails, the runner prints its error, each line led by &lt;code&gt;failed:&lt;/code&gt;, and then the last 5 lines that its commands printed, or as many as &lt;code&gt;Tail(n)&lt;/code&gt; asks for. It also copies every proxy log in the sandbox that has lines, each VM&amp;rsquo;s and each build&amp;rsquo;s, into &lt;code&gt;proxy-logs/&lt;/code&gt; in the sandbox&amp;rsquo;s state folder, because the run deletes the VMs and builds that wrote them, and it prints that folder and the last 5 lines of each log written since the check began. The next run empties &lt;code&gt;proxy-logs/&lt;/code&gt; before its first check. A check that the run has nothing for is &lt;code&gt;s.Skip(title, why)&lt;/code&gt;, which counts it, so that runs compare their counts.&lt;/p&gt;
 &lt;p&gt;The commands a check runs go through the section, so that they run in the sandbox&amp;rsquo;s environment and within the check&amp;rsquo;s time limit, and their output goes into the check&amp;rsquo;s log:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -1057,6 +1057,11 @@ data-copied-label="Copied!"
 &lt;td&gt;forbidigo, HTTP clients&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;internal/fetch&lt;/code&gt;, whose &lt;code&gt;NewClient&lt;/code&gt; sets each client&amp;rsquo;s timeout and redirect policy (&lt;code&gt;HTTPSOnly&lt;/code&gt; or &lt;code&gt;SameScheme&lt;/code&gt;), and whose &lt;code&gt;Retry&lt;/code&gt;, &lt;code&gt;Transient&lt;/code&gt;, &lt;code&gt;ReadCapped&lt;/code&gt;, &lt;code&gt;Get&lt;/code&gt;, &lt;code&gt;Resolve&lt;/code&gt; and &lt;code&gt;Download&lt;/code&gt; try again after the failures that may pass, cap what a body or a download may hold, follow a HEAD&amp;rsquo;s redirects to where they end and check a download&amp;rsquo;s SHA-256 before anything uses it. &lt;code&gt;fetch.Client&lt;/code&gt; is its own type, so a client that &lt;code&gt;NewClient&lt;/code&gt; didn&amp;rsquo;t make, such as &lt;code&gt;&amp;amp;fetch.Client{}&lt;/code&gt;, fails every request, and a caller changes a client&amp;rsquo;s transport through its &lt;code&gt;Transport&lt;/code&gt; method&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;internal/proxy&lt;/code&gt;, which is the standard library only, and tests, which make their own servers&amp;rsquo; clients&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forbidigo, &lt;code&gt;netip.Addr&lt;/code&gt;&amp;rsquo;s &lt;code&gt;IsPrivate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;proxy.Public&lt;/code&gt; in &lt;code&gt;internal/proxy/proxy.go&lt;/code&gt;, the one judge of whether an address is on the internet: netip&amp;rsquo;s classes, the table of the other ranges that aren&amp;rsquo;t (&lt;code&gt;notPublic&lt;/code&gt;), and the IPv4 address in a NAT64 or 6to4 address. The proxy&amp;rsquo;s floor, &lt;code&gt;devvm network lock&lt;/code&gt;, a &lt;code&gt;--clone&lt;/code&gt; VM&amp;rsquo;s partial-clone remotes and &lt;code&gt;--from&lt;/code&gt;&amp;rsquo;s registries all ask it, so a range added to it holds for each&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;internal/proxy&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;forbidigo, &lt;code&gt;os.WriteFile&lt;/code&gt;, &lt;code&gt;os.Create&lt;/code&gt; and &lt;code&gt;os.O_TRUNC&lt;/code&gt;&lt;/td&gt;
