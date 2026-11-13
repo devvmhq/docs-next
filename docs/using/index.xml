@@ -4058,7 +4058,7 @@ data-copied-label="Copied!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;The link&amp;rsquo;s next connection is refused, while connections that are open stay until they close.&lt;/p&gt;
+&lt;p&gt;On a running client, the link&amp;rsquo;s next connection is refused, and the connections that are open through it end within a few seconds, so a program in the client that keeps one open, such as a database client, sees it closed.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="when-links-change"&gt;When links change&lt;span class="hx:absolute hx:-mt-20" id="when-links-change"&gt;&lt;/span&gt;
 &lt;a href="#when-links-change" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A change of links reaches a running client at once and a stopped one when it next starts, and devvm says which. On a running client, the names resolve at once, because devvm rewrites the client&amp;rsquo;s &lt;code&gt;/etc/hosts&lt;/code&gt;, and a link&amp;rsquo;s port answers within a few seconds. The VM&amp;rsquo;s proxy reaches a new link as soon as its port answers, so the programs that use the VM&amp;rsquo;s proxy settings also reach it, including those that were already running. Nothing in the VM restarts, and the VM&amp;rsquo;s environment doesn&amp;rsquo;t change, whatever its tier.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="when-a-target-stops-or-goes"&gt;When a target stops or goes&lt;span class="hx:absolute hx:-mt-20" id="when-a-target-stops-or-goes"&gt;&lt;/span&gt;
