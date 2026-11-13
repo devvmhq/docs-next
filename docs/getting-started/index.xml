@@ -435,7 +435,11 @@ data-copied-label="Copied!"
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm code&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;get this folder&amp;rsquo;s VM ready as &lt;code&gt;devvm host&lt;/code&gt; does, then open its folder in VS Code over Remote-SSH (&lt;a href="https://next.devvm.dev/docs/using/ssh/#vs-code"&gt;VS Code&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;get this folder&amp;rsquo;s VM ready as &lt;code&gt;devvm host&lt;/code&gt; does, then open its folder in VS Code over Remote-SSH (&lt;a href="https://next.devvm.dev/docs/using/ssh/#vs-code-and-cursor"&gt;VS Code and Cursor&lt;/a&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;devvm cursor&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;get this folder&amp;rsquo;s VM ready as &lt;code&gt;devvm host&lt;/code&gt; does, then open its folder in Cursor over Remote-SSH (&lt;a href="https://next.devvm.dev/docs/using/ssh/#vs-code-and-cursor"&gt;VS Code and Cursor&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm desktop [--clipboard] [--no-open]&lt;/code&gt;&lt;/td&gt;
@@ -443,7 +447,7 @@ data-copied-label="Copied!"
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm host&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;get this folder&amp;rsquo;s VM ready for ssh and editors, and show the host name they reach it by, such as &lt;code&gt;devvm-website&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/using/ssh/#devvm-host-and-devvm-code"&gt;details&lt;/a&gt;)&lt;/td&gt;
+&lt;td&gt;get this folder&amp;rsquo;s VM ready for ssh and editors, and show the host name they reach it by, such as &lt;code&gt;devvm-website&lt;/code&gt; (&lt;a href="https://next.devvm.dev/docs/using/ssh/#devvm-host-devvm-code-and-devvm-cursor"&gt;details&lt;/a&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;devvm history&lt;/code&gt;&lt;/td&gt;

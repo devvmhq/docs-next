@@ -18,7 +18,7 @@
 - [Using devvm](https://next.devvm.dev/docs/using/index.md): These pages cover what you change as you work, such as the images VMs are made from, their ports and size, your coding agents, and the editors you connect with.
 - [Coding agents](https://next.devvm.dev/docs/using/coding-agents.md): devvm runs coding agents such as Claude Code in VMs, with each agent's settings and logins from devvm's own store on this machine but never your history. This page covers which agents devvm supports, devvm's agent store and what each VM gets from it, the agents' logins and their history.
 - [Toolchains](https://next.devvm.dev/docs/using/toolchains.md): devvm has these toolchains:
-- [SSH and editors](https://next.devvm.dev/docs/using/ssh.md): You can reach each running VM by name from ssh and from editors such as VS Code, and you choose for each VM whether it can use your SSH keys. ssh into VMs explains how devvm’s ssh entries keep a VM …
+- [SSH and editors](https://next.devvm.dev/docs/using/ssh.md): You can reach each running VM by name from ssh and from editors such as VS Code and Cursor, and you choose for each VM whether it can use your SSH keys. ssh into VMs explains how devvm’s ssh entries …
 - [Ports and size](https://next.devvm.dev/docs/using/ports-size.md): This page covers the ports a VM forwards to this machine and the CPUs, memory and disk it gets. You choose both when devvm makes a VM, and you can change both later with devvm ports and devvm size. …
 - [Managing VMs](https://next.devvm.dev/docs/using/vms.md): This page covers a VM from the time devvm makes it until you delete it: opening, restarting and stopping it, deleting it, listing your VMs, and what devvm does when you run a command in a subfolder or …
 - [Images and tools](https://next.devvm.dev/docs/using/images.md): Every VM is a copy of an image. An image is base with your choice of layers on it, and nothing else. A VM also gets the shared tools you chose for it, such as node or Claude Code, which are mounted …
@@ -67,6 +67,7 @@
 - [devvm clone fetch](https://next.devvm.dev/docs/cli/devvm_clone_fetch.md): Fetch the work of this folder’s –clone VM into each of its repos
 - [devvm code](https://next.devvm.dev/docs/cli/devvm_code.md): Open this folder’s VM in VS Code over Remote-SSH
 - [devvm completion](https://next.devvm.dev/docs/cli/devvm_completion.md): Print the shell completion script for bash, zsh or fish
+- [devvm cursor](https://next.devvm.dev/docs/cli/devvm_cursor.md): Open this folder’s VM in Cursor over Remote-SSH
 - [devvm desktop](https://next.devvm.dev/docs/cli/devvm_desktop.md): Open this folder’s VM’s desktop in a VNC viewer
 - [devvm doctor](https://next.devvm.dev/docs/cli/devvm_doctor.md): Check what devvm needs on this machine
 - [devvm gc](https://next.devvm.dev/docs/cli/devvm_gc.md): Delete stale images, unused tools, old files and the Nix cache over its cap
