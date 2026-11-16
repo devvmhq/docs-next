@@ -13,7 +13,7 @@ devvm -v build base   # the same for any command
 
 With `-v`, devvm shows each line on standard error as the log gets it, in place of the status line, and it still writes the log. When a step fails with `-v`, devvm names the log instead of printing its end again. Without `-v`, a status line in a terminal shows the step, how long it has run and the log's latest line, and a step that takes more than a few seconds leaves a line with its time.
 
-- **The log** is `~/.local/share/devvm/logs/runs/<date>-<time>-<pid>.log`, one for each run that runs a command, which only you can read, and devvm keeps the newest 20.
+- **The log** is `~/.local/share/devvm/logs/runs/<date>-<time>-<pid>.log`, one for each run that runs a command, which only you can read, and devvm keeps the newest 20, fewer when they take more than 256 MiB together.
 - **Each command** appears in it as a `+` line with its arguments, followed by its output, and a numbered step adds a `# [2/5] <step>` line first.
 - **Passwords and a VM's proxy key** stay out of it, written as `user:<password>@` and `devvm:<key>@`, including a company proxy's password from your shell's `HTTPS_PROXY` ([the run log](../internals/overview.md#the-run-log)).
 
@@ -146,11 +146,42 @@ If you press Ctrl+C while devvm starts a confined VM, devvm stops the VM and its
 
 ## The proxy doesn't start
 
-A confined VM runs only with its proxy, so when the proxy doesn't start, devvm stops the VM, and the next `devvm` starts both again. When devvm says the proxy didn't start, read the log it names for why. When it says another program took the proxy's port, devvm picks another port the next time it starts the VM, so run `devvm restart`. When the proxy doesn't stop for new settings, run `devvm stop`, then `devvm` ([the proxy](../internals/network.md#the-proxy)). An open VM runs on when its proxy doesn't answer it, and devvm warns you, because its tools that use the proxy fail, so run `devvm restart`, which starts both again.
+A confined VM runs only with its proxy, so when the proxy doesn't start, devvm stops the VM, and the next `devvm` starts both again. When devvm refuses before it stops the proxy, such as when your company proxy's password isn't saved, the VM and its proxy run on while that proxy still enforces the VM's tier, and otherwise devvm stops the VM.
+
+- **The proxy didn't start:** read the log devvm names for why. A VM's is `proxy.log` in its logs folder, where the proxy's two processes, its broker and its child, each write their own lines, and a build's is `proxy.log` in the build proxy's `logs/` folder.
+- **Another program took the proxy's port:** devvm picks another port the next time it starts the VM, so run `devvm restart`.
+- **The proxy doesn't stop for new settings:** run `devvm stop`, then `devvm` ([the proxy](../internals/network.md#the-proxy)).
+- **An open VM's proxy doesn't answer it:** the VM runs on, and devvm warns you, because its tools that use the proxy fail, so run `devvm restart`, which starts both again.
+
+## The proxy runs without a sandbox
+
+The part of a VM's proxy that reads the VM's network runs in a sandbox, which keeps it from your files, your unix sockets, this machine's services on `localhost` and the rest of this machine if a VM ever took it over: macOS's on macOS, and Landlock and a seccomp filter on Linux. When the sandbox can't start, or the kernel has only part of it, the proxy runs with what there is, so the VM keeps its network, and devvm doctor warns for each running VM:
+
+```sh
+devvm doctor                                            # names each VM whose proxy runs without a sandbox
+tail ~/.local/share/devvm/vms/<hash>/logs/proxy.log     # the proxy's own warning, with why
+devvm restart                                           # in the VM's folder: start the proxy again, sandboxed if it can be
+```
+
+- **sandbox-exec is missing:** macOS's `/usr/bin/sandbox-exec` runs the sandbox, and Lima's hostagent needs it too, so check that it's there, and run `devvm restart` once it is.
+- **sandbox-exec couldn't start it:** `proxy.log` has `sandbox-exec`'s own error, which says why, such as a profile that this macOS refused. Run `devvm restart` once you've fixed what it names, and if it names devvm's profile, report it as a bug ([reporting a bug](#reporting-a-bug)), with your macOS version.
+- **Its sandbox let it open a file it mustn't:** the sandbox started but didn't hold, so the proxy runs as if it had none. Report it as a bug ([reporting a bug](#reporting-a-bug)), with your macOS version.
+- **This kernel has no Landlock, or an older one, or no seccomp filters:** on Linux, the proxy gets what the kernel has. Check that Landlock is turned on with `cat /sys/kernel/security/lsm`, whose list should name `landlock`, and turn it on as your distribution's docs describe, or update the kernel: with Landlock's ABI 8 or later, or ABI 6 or 7 with its fix for signals between threads, and the seccomp filter, the proxy is fully confined. Then run `devvm restart`.
+- **devvm can't confine it on this system yet:** this devvm, or this machine's architecture, has no sandbox for it, though devvm's releases for macOS and for Linux on Intel and Arm have one, so install a release ([installing devvm](../getting-started/install.md)).
+
+[The child's sandbox](../internals/network.md#the-childs-sandbox) has what the sandbox allows and how the proxy decides to run without it.
 
 ## A request is blocked
 
 On the allowlist tier, a VM reaches only the hosts on its allowlist, and on the none tier only its agents' and secrets' hosts. To see what the proxy blocked, run `devvm network log --blocked` on this machine, or `devvm-why` in the VM. `devvm network log --blocked` also shows the `devvm network allow` command that allows each host, and the rule applies at once, to the next connection ([logs](../safety/network.md#logs)).
+
+## A name that doesn't resolve
+
+```sh
+curl https://jenkins.corp.example.com/   # in the VM: the host's full name, not jenkins
+```
+
+A block whose reason says that this machine's DNS has no address for the name means that a rule allows the name, but the proxy couldn't resolve it on this machine. So the block suggests no `devvm network allow` command, and `devvm network log --blocked` shows `-` for it. The proxy looks each name up as it's written, without this machine's DNS search domain, so a name without a dot, such as `jenkins`, which your other tools may reach as `jenkins.corp.example.com`, gets a reason that says to use the full name. Name the host in full in the tool's URL or settings. A block that says the DNS didn't answer in time, or can't resolve the name, names `proxy.log` on this machine, which holds the resolver's error ([inside the VM](../safety/network.md#inside-the-vm)).
 
 ## A tool that skips the proxy fails
 
@@ -158,9 +189,18 @@ On a confined tier, devvm's [transparent mode](../safety/network.md#tools-that-i
 
 - **A connection refused on another port,** such as `ECONNREFUSED` or `Connection refused` for `db.example.com:5432`. `devvm-why` lists the port under the connections the VM refused lately. Give the tool the proxy's address in `$HTTPS_PROXY` or its own setting, or, for HTTPS or HTTP on that port, allow the host with that port, such as `devvm network allow db.example.com:8443`, which redirects the port within 10 seconds.
 - **A protocol that names no host,** such as a database's or SSH, which the proxy refuses and logs as a refused block of `transparent.devvm.proxy`. SSH in the VM goes through the proxy already, and a database client needs a proxy setting of its own.
-- **A DNS error,** such as `no such host`, `Temporary failure in name resolution`, `ENOTFOUND` or `EAI_AGAIN`, which means transparent mode is off for the VM (`devvm network transparent`), or the VM comes from an image that predates it, which each launch says, and `devvm update` makes it again from a newer image. Most tools get the error at once. On a Linux host, a few, such as workerd under `wrangler dev`, wait about 40 seconds for each lookup first, so a tool that seems to hang at its start may be waiting for one.
+- **A DNS error,** such as `no such host`, `Temporary failure in name resolution`, `ENOTFOUND` or `EAI_AGAIN`, which means transparent mode is off for the VM (`devvm network transparent`), or the VM comes from an image that predates it, which each launch says, and `devvm update` makes it again from a newer image. The tool gets the error at once.
 
 Some tools read the proxy variables only when a setting of their own turns them on, or never. Turn on the tool's own proxy setting, so that it uses the environment, or give it the address in `$HTTPS_PROXY`. Hugo's `resources.GetRemote`, for example, uses the proxy only when `security.http.proxyFromEnvironment` is `true` in the site's config ([inside the VM](../safety/network.md#inside-the-vm)).
+
+## An open VM resolves no names after a downgrade
+
+A confined VM's programs ask the VM's own name server directly, through an `/etc/resolv.conf` that devvm writes, and devvm puts systemd-resolved's back when the VM runs open ([the VM's resolver](../internals/network.md#the-vms-resolver)). An older devvm doesn't know that file, so after a downgrade, a VM that was confined and now runs open can keep it and resolve no names. When the VM's `/etc/resolv.conf` starts with `# devvm:`, launch it with a current devvm, or put systemd-resolved's file back yourself:
+
+```sh
+head -1 /etc/resolv.conf   # in the VM: "# devvm: ..." means devvm's file
+sudo ln -sfn /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf && sudo systemctl restart systemd-resolved
+```
 
 ## A server's port is taken in a confined VM
 
@@ -219,9 +259,26 @@ devvm warns about two other reasons too, each in its own words, and `devvm ports
 - **The VM already forwards 256 ports**, the most it forwards at once. Stop the servers you don't need in the VM, or list fewer ports with `devvm ports`, and devvm forwards the port within about 10 seconds of the VM forwarding fewer.
 - **This machine doesn't let devvm use the port.** On Linux, only root can listen on a port below 1024, so a listed port such as 80 isn't forwarded. Have the server in the VM listen on a port from 1024 up and list that port instead.
 
+## Too many VMs at once
+
+At most 17 VMs run at once, because each VM's ssh is on one of the 17 ports that every browser refuses, so no page in your browser can reach it. A start past that fails and names the VMs that run on those ports, so stop one of them first:
+
+```sh
+devvm stop   # in a running VM's folder
+devvm ls     # which VMs run
+```
+
+A stopped VM can give up its port to a VM that starts, and it gets another at its own next start. When the message says the ports are taken on this machine without naming your VMs, VMs that are starting or building have them, a running VM lists them to forward, which you change with `devvm ports` in its folder, or another program has them, such as another user's on this machine, whom you'd ask to end it. A VM that an older devvm started keeps its old ssh port until you stop it and start it again, and devvm warns of it at each launch until then ([the ssh port](../internals/lima.md#what-devvm-sets-on-a-vm)).
+
 ## A VM won't boot
 
-A Lima VM that doesn't answer over ssh within a minute of starting is stopped. Read its console log before you start it again, because every start overwrites the log. The log is `serialv.log`, or another `serial*.log`, in the VM's folder in devvm's Lima home, which is `~/.local/share/devvm/lima/<vm>/` unless you set `DEVVM_LIMA_HOME` ([Lima's limits](../backends/lima.md#limits)).
+A Lima VM that doesn't answer over ssh within a minute of starting is stopped. Read the end of its console log before you start it again, because every start overwrites the log:
+
+```sh
+tail -n 100 ~/.local/share/devvm/lima/<vm>/serialv.log
+```
+
+The log is `serialv.log`, or another `serial*.log`, in the VM's folder in devvm's Lima home, which is `~/.local/share/devvm/lima/<vm>/` unless you set `DEVVM_LIMA_HOME` ([Lima's limits](../backends/lima.md#limits)). A log that passed 10 MiB while the VM ran has its earlier lines in the same name with `.1` added, and its own start is then a long run of empty bytes, which is why `tail` reads it better than an editor.
 
 ## A VM whose creation didn't finish
 

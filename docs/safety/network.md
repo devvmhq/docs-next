@@ -4,6 +4,8 @@ Every VM goes through a proxy that devvm runs for it on this machine, and the VM
 
 ```mermaid
 sequenceDiagram
+  accTitle: A VM's requests through its proxy
+  accDescr: The VM sends GET /user with a placeholder to its proxy on this machine, which finds api.github.com on the allowlist and sends the request on with your GitHub token, then passes the response back. A CONNECT to example.com:443 gets a 403, because that host isn't on the allowlist.
   participant P as The VM
   participant X as Its proxy,<br>on this machine
   participant H as api.github.com
@@ -479,7 +481,7 @@ On the none tier, a VM with Claude Code gets Claude Code's built-in policy whole
 
 Every login in the VM has the proxy settings in its environment (`HTTP_PROXY`, `HTTPS_PROXY` and their lowercase forms, `NO_PROXY` for the VM itself, and `NODE_USE_ENV_PROXY`), and the [CA variables](../using/settings.md#a-companys-ca) that every VM has point the tools that don't read the system's store at the VM's own CAs. devvm also points apt, sudo, ssh and Docker at the proxy ([how](../internals/network.md#the-vms-setup)), on every tier.
 
-On a confined tier, a direct connection to an address fails at once, even as root, and no DNS query leaves the VM. Names resolve in the proxy, and inside the VM every name resolves to one stand-in address, which leads to the proxy too, so a tool that skips the proxy settings still reaches the hosts the rules allow over HTTPS and HTTP ([tools that ignore the proxy](#tools-that-ignore-the-proxy)). Such a tool's connection to another port of a name is refused at once, and nothing reaches the log for it ([what to do](../using/troubleshooting.md#a-tool-that-skips-the-proxy-fails)).
+On a confined tier, a direct connection to an address fails at once, even as root, and no DNS query leaves the VM. Names resolve in the proxy, as the tool wrote them, without this machine's DNS search domain added, so to reach a host on your network, use its full name, such as `jenkins.corp.example.com` rather than `jenkins`. Inside the VM, every name resolves to one stand-in address, which leads to the proxy too, so a tool that skips the proxy settings still reaches the hosts the rules allow over HTTPS and HTTP ([tools that ignore the proxy](#tools-that-ignore-the-proxy)). Such a tool's connection to another port of a name is refused at once, and nothing reaches the log for it ([what to do](../using/troubleshooting.md#a-tool-that-skips-the-proxy-fails)).
 
 A blocked request gets `403`, and the response names the host, the reason and the rule that would allow it, but for a [quiet host](#quiet-hosts). The proxy also answers at `http://devvm.proxy/`:
 
@@ -538,7 +540,7 @@ The company proxy's address and password follow these rules:
 - The company proxy needs an `http://` address, such as `http://user:password@proxy.example.com:8080` in `HTTPS_PROXY`, and a proxy without a port is on port 80. devvm doesn't start a VM's proxy while `HTTPS_PROXY`, `HTTP_PROXY` or a `[proxy]` key names an `https://` or `socks5://` proxy, and it tells you which setting to change.
 - The company proxy's password stays on this machine. The VM never gets it, and devvm writes it into no log, no image and no process's arguments.
 - `config.toml` never holds the password, because it's a file you might copy to other machines or keep with your dotfiles, and devvm refuses a `[proxy]` URL that has one. Put only the user in the URL, as `http://alice@proxy.example.com:8080`, and save the password with `devvm secret set proxy`, which keeps it as it keeps the other [secrets](#saving-and-binding-secrets). devvm's proxies look it up themselves when they start, so no file of devvm's holds it in the clear.
-- devvm doesn't make a new VM, start a VM's proxy, or build an image or the shared tools while `config.toml`'s proxy names a user and no password is saved, and it checks before anything starts.
+- devvm doesn't make a new VM, start a VM's proxy, or build an image or the shared tools while `config.toml`'s proxy names a user and no password is saved, and it checks before anything starts or stops, so `devvm` or `devvm restart` in the folder of a running VM leaves the VM and its proxy running as they were, as long as that proxy still enforces the VM's network tier. When it doesn't, devvm stops the VM ([the proxy](../internals/network.md#the-proxy)).
 - A VM's proxy reads the password only when it starts, so after you change it, run `devvm restart` in each VM's folder. No VM ever gets the `proxy` secret, and `devvm secret use proxy` refuses.
 
 ```sh
@@ -591,7 +593,7 @@ $ devvm network transparent off
 ==> devvm turns transparent mode off for devvm-web-0c3c7077e29f06 at its next launch, and it applies while the VM is on a confined tier.
 ```
 
-With transparent mode off, names don't resolve in a confined VM at all, so a tool that skips the proxy fails with a DNS error. Most tools, such as curl, get that error at once, on macOS and on a Linux host alike. On a Linux host, a few, such as workerd under `wrangler dev`, can wait about 40 seconds for each lookup before they fail. On the open tier there's no transparent mode, and the VM resolves names with Lima's DNS. A VM made from an image built before devvm had transparent mode lacks the programs it runs, so each launch says so, and `devvm update` makes the VM again from a newer image.
+With transparent mode off, names don't resolve in a confined VM at all, so a tool that skips the proxy fails with a DNS error. Tools such as curl and workerd under `wrangler dev` get that error at once, on macOS and on a Linux host alike. On the open tier there's no transparent mode, and the VM resolves names with Lima's DNS. A VM made from an image built before devvm had transparent mode lacks the programs it runs, so each launch says so, and `devvm update` makes the VM again from a newer image.
 
 `devvm network transparent --json` prints the same as JSON, with `on` and `from`, which is `vm`, `config` or `default`, and `devvm network --json` has it too, as `transparent`:
 
@@ -767,7 +769,7 @@ devvm refuses a secret that breaks these rules:
 | Part | Rules |
 | --- | --- |
 | name | lowercase letters, digits and dashes, and not `claude`, `github` or `proxy`, nor starting with a coding agent's name, such as `codex-key` |
-| host | a host name, such as `api.example.com`. devvm refuses a wildcard, such as `*.example.com`, because some domains let anyone own a name under them. It also refuses an address, any port but 443, and a name that's only ever internal, such as `localhost`, `printer.local` or a Tailscale or `nip.io` name. The proxy refuses an internal address whatever name resolves to it anyway |
+| host | a host name, such as `api.example.com`. devvm refuses a wildcard, such as `*.example.com`, because some domains let anyone own a name under them. It also refuses an address, any port but 443, a name with a character that isn't plain ASCII, as the proxy refuses such a host, and a name that's only ever internal, such as `localhost`, `printer.local` or a Tailscale or `nip.io` name. The proxy refuses an internal address whatever name resolves to it anyway |
 | header | not `Host`, `Cookie`, `Content-Length`, `Content-Type`, `Transfer-Encoding`, `Expect`, `Forwarded`, `Via`, an `X-Forwarded-` or `Proxy-` header, or one that ends at the next hop, such as `Connection`, because the proxy drops or sets those itself. Nor one that servers commonly log or send back, such as `Origin`, `Referer`, `User-Agent`, `X-Request-Id` or `Traceparent` |
 | variable | not one that devvm or the VM's shell sets, such as `PATH`, `GH_TOKEN`, `HTTPS_PROXY`, `NPM_CONFIG_PREFIX` or any `DEVVM_` variable, nor one that changes what a program runs or trusts, such as a `GIT_` or `PYTHON` variable, `NODE_OPTIONS`, `EDITOR` or `SSL_CERT_DIR`, nor another secret's |
 | prefix | not holding `devvm-proxy-managed`, which every placeholder holds after its prefix |
@@ -827,7 +829,7 @@ devvm keeps your secrets' hosts, headers, variables, prefixes, paths, methods an
 | `reason` | the reason it was blocked, or what came of a cache request |
 | `agent` | the request's `User-Agent` header |
 | `secrets` | the secrets put in |
-| `refused` | for a request refused whatever the allowlist says |
+| `refused` | for a request refused whatever the allowlist says, such as an allowed name that doesn't resolve |
 | `quiet` | for a block of a [quiet host](#quiet-hosts) |
 | `upstream` | the company proxy it went through |
 | `target` | the VM that a link's connection went to |
