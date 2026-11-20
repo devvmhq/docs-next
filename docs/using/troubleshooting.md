@@ -11,7 +11,7 @@ devvm -v              # open this folder's VM, showing each command's output
 devvm -v build base   # the same for any command
 ```
 
-With `-v`, devvm shows each line on standard error as the log gets it, in place of the status line, and it still writes the log. When a step fails with `-v`, devvm names the log instead of printing its end again. Without `-v`, a status line in a terminal shows the step, how long it has run and the log's latest line, and a step that takes more than a few seconds leaves a line with its time.
+With `-v`, devvm shows each line on standard error as the log gets it, in place of the status line, and it still writes the log. When a step fails with `-v`, devvm names the log instead of printing its end again. Without `-v`, a status line in a terminal shows what devvm is waiting for, such as a command it runs, a check of the VM, a look through a folder or another devvm that's changing the same thing, with how long it has run and the log's latest line, and a step that takes more than a few seconds leaves a line with its time. With `-v`, or without a terminal, a wait for another devvm shows nothing. A warning prints above the status line, and a question takes the status line away until you answer it.
 
 - **The log** is `~/.local/share/devvm/logs/runs/<date>-<time>-<pid>.log`, one for each run that runs a command, which only you can read, and devvm keeps the newest 20, fewer when they take more than 256 MiB together.
 - **Each command** appears in it as a `+` line with its arguments, followed by its output, and a numbered step adds a `# [2/5] <step>` line first.
@@ -104,6 +104,12 @@ A VM's own state file, `vm.json` in its folder in `vms/`, is the one to fix rath
 - devvm doesn't know which shared tools such a VM uses or which folders it mounts, so `devvm space`, `devvm images` and `devvm gc` fail and name the file.
 - devvm refuses to add a key to its own SSH agent, or to load one into it as a VM starts, because it can't tell whether that VM mounts the key's folder.
 
+To find every VM whose state devvm can't read, run doctor. It reads each VM's `vm.json` and each of its sections as every command on a VM reads them, and names each VM it can't read and why, the file included, once, even when it can't read the VM's folder, without changing anything. Such a VM doesn't hide doctor's other warnings, such as a line of another VM's policy file that isn't a rule. Every command on such a VM fails until you fix its file:
+
+```sh
+devvm doctor   # warns of each VM whose vm.json, or a section of it, devvm can't read
+```
+
 ## devvm says a newer release is out
 
 When you run devvm in a terminal and a newer release is out, devvm says so in one line before it opens the VM, and it opens the VM as usual. Run `devvm upgrade` to install the release, or carry on with the devvm you have, because devvm never upgrades on its own. The line comes from devvm's daily check, and `devvm doctor` shows the newest release that check found and the day it found it. When you'd rather not see the line, set `release-check = false` in `config.toml`, or `DEVVM_NO_RELEASE_CHECK=1` in the environment ([the release check](settings.md#the-release-check)).
@@ -167,6 +173,8 @@ devvm restart                                           # in the VM's folder: st
 - **sandbox-exec couldn't start it:** `proxy.log` has `sandbox-exec`'s own error, which says why, such as a profile that this macOS refused. Run `devvm restart` once you've fixed what it names, and if it names devvm's profile, report it as a bug ([reporting a bug](#reporting-a-bug)), with your macOS version.
 - **Its sandbox let it open a file it mustn't:** the sandbox started but didn't hold, so the proxy runs as if it had none. Report it as a bug ([reporting a bug](#reporting-a-bug)), with your macOS version.
 - **This kernel has no Landlock, or an older one, or no seccomp filters:** on Linux, the proxy gets what the kernel has. Check that Landlock is turned on with `cat /sys/kernel/security/lsm`, whose list should name `landlock`, and turn it on as your distribution's docs describe, or update the kernel: with Landlock's ABI 8 or later, or ABI 6 or 7 with its fix for signals between threads, and the seccomp filter, the proxy is fully confined. Then run `devvm restart`.
+- **An older devvm started it:** a VM that ran as you upgraded devvm keeps the proxy that the older devvm started, one process without a sandbox, until devvm next opens the VM. Run `devvm` in the VM's folder, which starts its proxy again with the sandbox, while the VM runs on.
+- **devvm can't tell:** devvm doctor reads how the proxy is confined only from the proxy that runs now, which it knows by when the system says it started, so when it can't read that, it says it can't tell whether the proxy runs in its sandbox, and why. Run `devvm restart` in the VM's folder, and if the warning stays, report it as a bug ([reporting a bug](#reporting-a-bug)).
 - **devvm can't confine it on this system yet:** this devvm, or this machine's architecture, has no sandbox for it, though devvm's releases for macOS and for Linux on Intel and Arm have one, so install a release ([installing devvm](../getting-started/install.md)).
 
 [The child's sandbox](../internals/network.md#the-childs-sandbox) has what the sandbox allows and how the proxy decides to run without it.
