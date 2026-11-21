@@ -23,7 +23,7 @@ Each thing devvm needs from a backend is a feature, such as building images, mou
 
 A backend lists every feature, the ones it lacks too, and devvm refuses to use a backend that leaves one out, so a new feature makes each backend say how it has it. Some features are built on others: `read-only-paths` and `mount-cache` on `project-mount`, `ports-all` on `ports`, `agent-toggle` on `agent-forwarding`, and `link` on `ssh`. A backend has such a feature no better than the one it's built on, so the feature is emulated wherever its base is emulated, and none wherever its base is none.
 
-devvm uses an emulation only once its review has passed, and until then it refuses the emulation. A review takes a [design note](design.md#emulated-features), a threat check with the security-audit skill, and end-to-end checks that prove the guarantee.
+devvm uses an emulation only once its review has passed, and until then it refuses the emulation. A review takes a [design note](../contributing/design.md#emulated-features), a threat check with the security-audit skill, and end-to-end checks that prove the guarantee.
 
 `devvm doctor` lists Lima's features, and `devvm doctor --json` those of every backend devvm has. Both show an emulation whose review hasn't passed as `unreviewed`.
 
@@ -36,8 +36,8 @@ devvm uses an emulation only once its review has passed, and until then it refus
 | `from` | `base` from a container image (`--from`) | native: devvm converts the image to a disk |
 | `clone` | a project VM from an image | native: an APFS copy-on-write copy on macOS, and a qcow2 overlay on Linux ([details](lima.md#clones-and-overlays)) |
 | `project-mount` | the project folder, read-write | native: virtiofs on macOS, and 9p on Linux |
-| `read-only-paths` | paths in the project folder that the guest can't change while the VM runs, which [.git protection](git-protection.md#on-linux-hosts) asks for on Linux | native on Linux where the kernel lets devvm use a user namespace: QEMU runs in one of its own, with the paths bound read-only over themselves ([details](design.md#read-only-paths-on-linux)). None on macOS, where `.git` protection locks the host's files itself, and none where devvm's check of the kernel fails |
-| `mount-cache` | choosing how the guest caches the project folder's mount, which `devvm mount-cache` sets | native on Linux, where it's 9p's cache option, `none` for new VMs ([details](design.md#the-9p-cache-on-linux)). None on macOS, where virtiofs has no such option |
+| `read-only-paths` | paths in the project folder that the guest can't change while the VM runs, which [.git protection](git-protection.md#on-linux-hosts) asks for on Linux | native on Linux where the kernel lets devvm use a user namespace: QEMU runs in one of its own, with the paths bound read-only over themselves ([details](../contributing/design.md#read-only-paths-on-linux)). None on macOS, where `.git` protection locks the host's files itself, and none where devvm's check of the kernel fails |
+| `mount-cache` | choosing how the guest caches the project folder's mount, which `devvm mount-cache` sets | native on Linux, where it's 9p's cache option, `none` for new VMs ([details](../contributing/design.md#the-9p-cache-on-linux)). None on macOS, where virtiofs has no such option |
 | `agent-folders` | agents' host folders, read-only | native: read-only mounts, enforced by the host |
 | `tools-share` | the shared tools, read-only | native: a read-only mount, enforced by the host |
 | `egress-proxy` | network traffic only through devvm's proxy | native: Seatbelt on macOS, and on Linux QEMU's `restrict=on` with a `guestfwd` to the proxy ([details](lima.md#confinement)) |
@@ -53,13 +53,13 @@ devvm uses an emulation only once its review has passed, and until then it refus
 | `nix-layer` | the [nix layer](../using/images.md#nix): Nix's daemon and its store in the VM, with builds in Nix's sandbox | native ([details](images.md#the-nix-layer)) |
 | `link` | links between VMs: a program in one VM reaches a port another VM publishes, by name | native: a link session of devvm's own over Lima's ssh, with remote forwards to `127.77.0.0/16` alone ([details](ports.md#links-between-vms)) |
 
-`egress-proxy` is what every [network tier](../safety/network.md#network-tiers) but open needs. The open tier needs no feature of its own: every backend must let a VM on its own network (`NetDirect`) reach a port on the host's loopback and set the guest's proxy settings from the confinement (`Confinement.GuestProxy`, `ProxyURL`), which the conformance suite checks (`checkProxyURL`), because every VM's proxy carries its requests. So a backend without `egress-proxy` still has open VMs, and devvm refuses every other tier on it in one line (`net_tier_backend`).
+`egress-proxy` is what every [network tier](../safety/network.md#network-tiers) but open needs. The open tier needs no feature of its own: every backend must let a VM on its own network reach a port on the host's loopback and set the guest's proxy settings from what devvm confines the VM to, which the conformance suite checks ([how a backend plugs in](../contributing/extending.md#how-a-backend-plugs-in)), because every VM's proxy carries its requests. So a backend without `egress-proxy` still has open VMs, and devvm refuses every other tier on it in one line (`net_tier_backend`).
 
 ### What each backend emulates
 
 On Lima, devvm emulates forwarding ports, both the listed ones and every one, through its forwarder, and the emulation is reviewed ([port forwarding](ports.md)). Everything else on Lima is Lima's own.
 
-The forwarder is devvm's own on every backend, never a backend's. A backend that has `ports` turns its own forwards off, and devvm's forwarder reaches a running VM's sshd the way the backend's `SSH` says, which is a user, a key and a port. devvm refuses that target unless it's on this machine's loopback, `127.0.0.1`, with the same check it uses for links and the ssh config (`vmssh.FromTarget`). devvm reads which ports the VM forwards from its state, chooses which of them are free, pins the VM's host keys for its current start and starts the forwarder, which follows the backend's lifeline for the VM.
+The forwarder is devvm's own on every backend, never a backend's. A backend that has `ports` turns its own forwards off, and devvm's forwarder reaches a running VM's sshd the way the backend's `SSH` says, which is a user, a key and a port. devvm refuses that target unless it's on this machine's loopback, `127.0.0.1`, with the same check it uses for links and the ssh config. devvm reads which ports the VM forwards from its state, chooses which of them are free, pins the VM's host keys for its current start and starts the forwarder, which follows the backend's lifeline for the VM.
 
 ## Missing and unreviewed features
 
@@ -93,7 +93,7 @@ Which ports a VM forwards stays in the VM's state alone, and the backend never h
 
 ## VM names
 
-A project VM's name is `devvm-<folder>-<hash>`. The folder part is up to 20 characters of the folder's name, in lowercase, with each run of characters other than letters and digits turned into one dash, because Lima refuses a name with separators in a row, so `foo (copy)` gives `foo-copy`. The hash part is 14 hex digits of a hash of the folder's path. devvm takes a name as a project VM's only when it has that form, so a name in a state file or a backend's list whose folder part has any other character, starts or ends with a dash, or has two dashes in a row isn't a project VM's. A state file whose name has dashes in a row and no `created` time is from a VM that Lima refused to make, so devvm reads it as no VM's state, and the folder's next VM replaces it.
+A project VM's name is `devvm-<folder>-<hash>`. The folder part is up to 20 characters of the folder's name, in lowercase, with each run of characters other than letters and digits turned into one dash, because Lima refuses a name with separators in a row, so `foo (copy)` gives `foo-copy`. The hash part is 14 hex digits of a hash of the folder's path. devvm takes a name as a project VM's only when it has that form, so a name in a state file or a backend's list whose folder part has any other character, starts or ends with a dash, or has two dashes in a row isn't a project VM's. A state file whose name has dashes in a row and no `created` time belongs to a VM that Lima refused to make, so devvm reads it as no VM's state and the folder's next VM replaces it.
 
 A backend may need shorter names, and then devvm cuts the folder's part to fit. When fewer than 4 characters of it would fit, devvm refuses (`vm_name_no_room`). On Lima the room for a name depends on the Lima home's path, because Lima keeps each VM's ssh socket under it, so there the fix is a shorter Lima home (`lima_home_too_long`, [limits](../backends/lima.md#limits)).
 
