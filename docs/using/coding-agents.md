@@ -94,7 +94,7 @@ Each row lists the agent's paths in the VM's home, and the store keeps each one 
 | --- | --- | --- |
 | claude | `~/.claude/{skills,agents,commands,output-styles}`, and the store's `~/.claude/plugins` at `~/.claude/plugins-seed` ([Claude Code's plugins](#claude-codes-plugins)) | `~/.claude/settings.json`, `~/.claude/CLAUDE.md`, and from the logins `~/.claude.json` ([merged](#copies), only its settings, account state and MCP servers) |
 | codex | `~/.codex/{prompts,skills}` | `~/.codex/{config.toml,AGENTS.md}`, and from the logins `~/.codex/auth.json` |
-| opencode | the subfolders of `~/.config/opencode` (not `node_modules`) | the files in `~/.config/opencode` (not lock files), and from the logins `~/.local/share/opencode/auth.json` |
+| opencode | the subfolders of `~/.config/opencode` (not `node_modules`) | the files in `~/.config/opencode` (not lock files, `.gitignore`, `.DS_Store` or [its service's settings](#opencodes-service)), and from the logins `~/.local/share/opencode/auth.json` |
 | pi | `~/.pi/agent/{extensions,skills,prompts,themes}` | `~/.pi/agent/{settings.json,keybindings.json,models.json,mcp.json,AGENTS.md,SYSTEM.md,APPEND_SYSTEM.md}`, and from the logins `~/.pi/agent/auth.json` |
 
 ### Importing from this machine
@@ -156,7 +156,7 @@ devvm agent save          # show what changed in the VM's agents' settings, then
 devvm agent save codex    # save only Codex's
 ```
 
-It reads at most 128 MiB from the VM, in at most 20,000 files, folders and links, none of the files larger than 16 MiB, at most 128 folders deep and in paths of at most 4,096 bytes. When the VM sends more, or sends a path outside the agents' settings, devvm saves nothing. A save that fails partway leaves the store as it was.
+It reads at most 128 MiB from the VM, in at most 20,000 files, folders and links, none of the files larger than 16 MiB, at most 128 folders deep and in paths of at most 4,096 bytes. The VM sends only what the store keeps, as the table above lists, so opencode's lock files, such as the `bun.lock` that its plugins' installs write, stay in the VM. When the VM sends more, or sends a path outside the agents' settings, devvm saves nothing. A save that fails partway leaves the store as it was.
 
 For example, to give every VM a plugin that you install in one:
 
@@ -290,6 +290,23 @@ opencode's Anthropic login is an API key, because opencode itself has no other w
 #### Logins made in a VM
 
 A login that Codex or opencode makes in a VM, whether `devvm agent login` runs it or you run it yourself, is saved in devvm's store, and every VM with that agent gets it from its next launch. A login that shows a code to type into a browser works in a VM as it is, but opencode's Sign in with ChatGPT doesn't, so choose one of opencode's Codex logins instead, as `devvm agent login opencode` does ([how a VM's logins are saved](../internals/agents.md#logins-made-in-a-vm)). On the open tier, a program that goes around the VM's proxy gets the login's tokens itself, and devvm saves nothing ([logins made in a VM](../internals/network.md#logins-made-in-a-vm)).
+
+### opencode's service
+
+opencode's background service, which opencode starts when it needs one, asks for a password when you sign in to it, and each VM's opencode makes its own the first time its service starts. To sign in to a VM's service, such as from opencode's app, read that VM's password in the VM:
+
+```sh
+opencode service get password           # in the VM: its service's password, made now if it has none
+opencode service set password PASSWORD  # in the VM: choose another, which stops its service
+```
+
+- devvm never copies this machine's opencode service settings into its agent store or a VM. They're `service.json` in `~/.config/opencode`, or `service-<channel>.json` for another channel's opencode, and they hold this machine's service password and, with remote access on, the secret route that the service is served on. So `devvm agent import` and `devvm agent save` leave them out, and each VM's service settings stay in that VM.
+- When devvm's agent store holds them, a VM's start takes them out and warns once, and each VM's setup takes out any copy of them that devvm made, so the VM's opencode makes its own password ([how](../internals/agents.md#opencodes-service)).
+- A service that's running keeps the password it started with, so after that warning, restart each running VM that has opencode:
+
+```sh
+devvm restart   # in the VM's folder: its opencode service starts again with a password of its own
+```
 
 ### pi logins
 
@@ -466,7 +483,7 @@ devvm looks for them only in the system's folders, never elsewhere on your `PATH
 
 ## History
 
-Each VM's transcripts and sessions stay in that VM. `devvm history export [FILE]` saves them, and `devvm rm` saves them before it deletes a VM that has an agent. The export is a `.tar.gz` of the agents' history in the VM, <!-- the agents' history, generated from internal/agents by mise run cli-docs -->`~/.claude`, `~/.claude.json`, `~/.codex`, `~/.local/share/opencode`, `~/.local/state/opencode`, `~/.pi/agent/sessions` and `~/.cursor/chats`<!-- end of the agents' history -->, written to FILE or to `~/.local/share/devvm/exports/<vm>-<date>-<time>.tar.gz`. An export in that folder gets a `<vm>-<date>-<time>.folder` file beside it, which names the VM's project folder and the VM's [network tier](../safety/network.md#network-tiers) when devvm wrote the export. The agents' logins are never in an export, and an export holds at most 2 GiB ([what an export holds](../internals/agents.md#history-exports)). The commands:
+Each VM's transcripts and sessions stay in that VM. `devvm history export [FILE]` saves them, and `devvm rm` saves them before it deletes a VM that has an agent. The export is a `.tar.gz` of the agents' history in the VM, <!-- the agents' history, generated from internal/agents by mise run cli-docs -->`~/.claude`, `~/.claude.json`, `~/.codex`, `~/.local/share/opencode`, `~/.local/state/opencode`, `~/.pi/agent/sessions` and `~/.cursor/chats`<!-- end of the agents' history -->, written to FILE or to `~/.local/share/devvm/exports/<vm>-<date>-<time>.tar.gz`. An export in that folder gets a `<vm>-<date>-<time>.folder` file beside it, which names the VM's project folder and the VM's [network tier](../safety/network.md#network-tiers) when devvm wrote the export. The agents' logins are never in an export, and neither is the key that every machine paired with the VM's opencode trusts. An export holds at most 2 GiB ([what an export holds](../internals/agents.md#history-exports)). The commands:
 
 ```sh
 devvm history                       # list the exports devvm saved
@@ -516,7 +533,35 @@ devvm history import ~/backup.tar.gz    # or an export of your own
 - When devvm makes a new VM that has an agent, and it saved an export for the same folder before, it offers that export. In a terminal it asks whether to import it into the new VM, with no as the default. Without a terminal, or with `--no-input`, it doesn't ask, and it says which export it found and that `devvm history import` in the folder puts it into the VM. devvm imports the export once the VM has started and before its setup, and if the import fails, devvm warns and makes the VM anyway, so you can run `devvm history import` later.
 - An export holds what a VM wrote, so devvm treats it as untrusted, and when it comes from a VM on a less strict tier than the VM you import it into, devvm warns you before it imports. It treats an export with no tier recorded, or a FILE elsewhere, as if it came from an open VM. When an export holds a path outside the agents' history folders, devvm imports nothing.
 - The import leaves out what devvm puts in the VM itself. That's the agents' logins, `~/.claude/.credentials.json`, with the old VM's own MCP servers' logins in it, `~/.codex/auth.json`, and opencode's `auth.json`, `account.json`, `mcp-auth.json` and `bin`. It's also `~/.claude.json`, whose copy in the old VM held that VM's own placeholders, and every agent's [mounted folders and copied files](#devvms-agent-store), which the new VM's setup links and copies from devvm's agent store.
+- The import also leaves out the old VM's opencode identity, as an export does: opencode's `~/.local/state/opencode/machine`, with the key that every machine paired with the old VM's opencode trusts, and its `service.json`, or `service-<channel>.json` for another channel's opencode, and `pty`, which hold the password of the old VM's opencode service and the access tokens of its terminals' daemons. The new VM's opencode makes its own. The import also leaves out the project plugins you approved in opencode's native client, `plugin-approvals.json` and `plugin-staged`, so opencode asks again before it runs one.
+- opencode's sessions come without what opencode would act on without asking. Neither an export nor an import keeps:
+  - automations, whose shell commands run on their schedule without asking again
+  - the requests you said always to allow
+  - subagents' jobs and queued messages
+  - a project's commands
+  - opencode's git repositories and worktrees
+
+  No session resumes its turn on its own, and each session keeps only its deny and ask rules ([what an export holds](../internals/agents.md#history-exports)). In the new VM, make again any automation you want, and opencode asks again before the requests you had always allowed. `devvm rm` deletes opencode's worktrees with the VM, so it asks before their uncommitted changes go ([opencode's worktrees](#opencodes-worktrees)).
 - A file or folder the VM already has stays as it is, so importing into a VM that has history of its own adds the export's files without replacing any of its own.
+
+### opencode's worktrees
+
+```sh
+devvm rm                                  # show opencode's worktrees' uncommitted changes, then ask
+devvm rm --no-worktree-check              # delete the VM without checking them, losing those changes
+devvm update --clean-home                 # a remake that starts from the image's home folder checks them too
+```
+
+opencode makes its worktrees in `~/.local/share/opencode/worktree` in the VM, and an export leaves that folder out, so their uncommitted changes go with the VM. Before `devvm rm` deletes the VM, and before a command that makes it again with `--clean-home` gives it the image's home folder, devvm checks each of those worktrees, starting a stopped VM for the check as a launch does. It asks before what it finds is lost, only in a terminal, so `--force` never answers. Without a terminal, or with `--no-input`, devvm refuses and keeps the VM, and when only the worktrees have work, the refusal names `--no-worktree-check`, which warns and goes ahead without the check.
+
+devvm asks about:
+
+- **Uncommitted changes:** it lists the first 20 in all, under each worktree's path.
+- **A detached HEAD's commits** that no branch, tag or remote-tracking branch in the VM has. To keep them, run `git switch -c NAME` in that worktree first.
+- **A worktree that git can't read,** such as one whose entry your project's repository pruned, because it may hold changes devvm can't see.
+- **More than 100 worktrees,** of which devvm checks the first 100.
+
+To keep the work, commit it in the worktree, which puts it in your project's repository for a VM that mounts the folder, or in the clone, whose branches `devvm rm` offers to fetch, for a `--clone` VM ([deleting the VM](clone.md#deleting-the-vm)). For a `--clone` VM, the clone's check and the worktrees' share one question, and when the clone has work too, the refusal tells you to run the command in a terminal, as the clone's own does. When reading the worktrees fails, or the VM doesn't start for the check, devvm keeps the VM and names `--no-worktree-check`. A command that keeps the VM's home folder, such as `devvm update` without `--clean-home`, keeps the worktrees too, so it doesn't check them ([how devvm checks](../internals/agents.md#opencodes-worktrees)).
 
 ## The VM's setup
 
